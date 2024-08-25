@@ -1,4 +1,3 @@
-import { Canvas } from '@react-three/fiber'
 import './App.css'
 import { Outlet } from 'react-router-dom'
 

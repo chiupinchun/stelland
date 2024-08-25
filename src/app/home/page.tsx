@@ -6,7 +6,6 @@ import StarNight from '@/app/common/components/r3f/star-night'
 import { Sprite, sprites } from '@/app/common/constants/sprites'
 import { Coordinate3d } from '@/app/common/types/math'
 import Avatars from './components/avatars'
-import { CAMERA_OFFSET } from '../common/constants/ui-model'
 import Dialog from './components/dialog'
 
 interface Props { }
