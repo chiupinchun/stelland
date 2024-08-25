@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import Cat from '@/assets/models/cat.glb?url'
 import Chikun from '@/assets/models/chikun.glb?url'
 import Dog from '@/assets/models/dog.glb?url'
@@ -20,12 +20,12 @@ const HomePage: FC<Props> = () => {
         <Scene>
           <Ground />
           <StarNight count={100} />
-          <UiModel src={Fish} rawPosition={[-1, 0, 0]} />
-          <UiModel src={Cat} rawPosition={[0, 0, 0]} />
-          <UiModel src={Dog} rawPosition={[1, 0, 0]} />
-          <UiModel src={Chikun} rawPosition={[0, 0, -1]} />
-          <UiModel src={PrairieDogGlb} rawPosition={[1, 0, -1]} />
-          <UiModel src={Snake} rawPosition={[-1, 0, -1]} />
+          <UiModel src={Fish} position={[-1, 0, 0]} />
+          <UiModel src={Cat} position={[0, 0, 0]} />
+          <UiModel src={Dog} position={[1, 0, 0]} />
+          <UiModel src={Chikun} position={[0, 0, -1]} />
+          <UiModel src={PrairieDogGlb} position={[1, 0, -1]} />
+          <UiModel src={Snake} position={[-1, 0, -1]} />
         </Scene>
       </div>
     </>
