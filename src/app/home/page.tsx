@@ -1,11 +1,12 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { RandomMoveUiModel } from '@/app/common/components/r3f/ui-model'
 import Scene from '@/app/common/components/r3f/scene'
 import Ground from '@/app/common/components/r3f/ground'
 import StarNight from '@/app/common/components/r3f/star-night'
-import { sprites } from '@/app/common/constants/sprites'
+import { Sprite, sprites } from '@/app/common/constants/sprites'
 import { Coordinate3d } from '@/app/common/types/math'
 import Avatars from './components/avatars'
+import { CAMERA_OFFSET } from '../common/constants/ui-model'
 
 interface Props { }
 
@@ -19,6 +20,8 @@ const HomePage: FC<Props> = () => {
     ] as Coordinate3d
   }))
 
+  const [selectedSprite, setSelectedSprite] = useState<Sprite | null>(null)
+
   return (
     <>
       <div className='relative h-screen'>
@@ -26,12 +29,22 @@ const HomePage: FC<Props> = () => {
           <Ground />
           <StarNight count={100} />
           {spriteModels.map(sprite => (
-            <RandomMoveUiModel key={sprite.key} src={sprite.model} position={sprite.position} />
+            <RandomMoveUiModel
+              key={sprite.key} src={sprite.model} position={sprite.position}
+              focus={selectedSprite?.key === sprite.key}
+              onFrame={(scene, state) => {
+                if (selectedSprite?.key === sprite.key) {
+                  const { x, z } = scene.position
+                  const { y } = state.camera.position
+                  state.camera.position.set(x, y, z + CAMERA_OFFSET)
+                }
+              }}
+            />
           ))}
         </Scene>
 
         <div className='absolute top-0 left-2 flex justify-center items-center py-2 h-full'>
-          <Avatars />
+          <Avatars onSelect={setSelectedSprite} />
         </div>
       </div>
     </>

@@ -49,3 +49,5 @@ export const sprites = [
     avatar: PrairieDogAvatar
   },
 ] as const
+
+export type Sprite = typeof sprites[number]
