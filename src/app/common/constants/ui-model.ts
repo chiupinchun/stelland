@@ -1,0 +1,1 @@
+export const RANDOM_MOVE_LENGTH = 1

@@ -4,6 +4,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { AnimationMixer } from 'three'
 import { Coordinate3d } from '@/app/common/types/math'
 import { getDirection } from '@/app/common/utils/math'
+import { RANDOM_MOVE_LENGTH } from '@/app/common/constants/ui-model'
 
 interface Props {
   src: string
@@ -73,7 +74,7 @@ export const RandomMoveUiModel: FC<Props> = ({ position: rawPosition = [0, 0, 0]
 
   const randomMove = () => {
     const getOffset = () => {
-      return -0.5 + Math.random()
+      return -RANDOM_MOVE_LENGTH + Math.random() * 2 * RANDOM_MOVE_LENGTH
     }
 
     setPosition(([x, y, z]) => [x + getOffset(), y, z + getOffset()])
