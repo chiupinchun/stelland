@@ -8,7 +8,7 @@ interface Props {
 
 const UiModel: FC<Props> = ({ src }) => {
   const model = useLoader(GLTFLoader, src)
-  console.log(model)
+
   return (
     <>
       <primitive object={model.scene} />

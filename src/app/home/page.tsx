@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import PrairieDogGlb from '@/assets/models/prairie-dog.glb?url'
-import UiModel from '@/app/common/components/ui-model'
-import Scene from '../common/components/scene'
+import UiModel from '@/app/common/components/r3f/ui-model'
+import Scene from '@/app/common/components/r3f/scene'
 
 interface Props { }
 
