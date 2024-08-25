@@ -1,7 +1,7 @@
 import { FC, useEffect, useRef } from 'react'
-import { useLoader } from '@react-three/fiber'
+import { useFrame, useLoader } from '@react-three/fiber'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
-import { Mesh } from 'three'
+import { AnimationMixer, Mesh } from 'three'
 import { Coordinate3d } from '@/app/common/types/math'
 
 interface Props {
@@ -11,11 +11,27 @@ interface Props {
 
 const UiModel: FC<Props> = ({ src, rawPosition = [0, 0, 0] }) => {
   const model = useLoader(GLTFLoader, src)
-  const modelRef = useRef<React.MutableRefObject<Mesh>>(null!)
+
+  const mixer = useRef<AnimationMixer | null>(null)
+
+  useEffect(() => {
+    mixer.current = new AnimationMixer(model.scene);
+
+    model.animations.forEach(animation => {
+      const action = mixer.current?.clipAction(animation)
+      action?.play()
+    })
+  }, [])
+
+  useFrame((_, delta) => {
+    if (mixer.current) {
+      mixer.current.update(delta);
+    }
+  });
 
   return (
     <>
-      <primitive object={model.scene} ref={modelRef} position={rawPosition} />
+      <primitive object={model.scene} position={rawPosition} />
     </>
   )
 }
