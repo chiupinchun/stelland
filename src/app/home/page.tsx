@@ -32,13 +32,6 @@ const HomePage: FC<Props> = () => {
             <RandomMoveUiModel
               key={sprite.key} src={sprite.model} position={sprite.position}
               focus={selectedSprite?.key === sprite.key}
-              onFrame={(scene, state) => {
-                if (selectedSprite?.key === sprite.key) {
-                  const { x, z } = scene.position
-                  const { y } = state.camera.position
-                  state.camera.position.set(x, y, z + CAMERA_OFFSET)
-                }
-              }}
             />
           ))}
         </Scene>
