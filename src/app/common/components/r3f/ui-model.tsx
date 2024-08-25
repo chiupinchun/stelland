@@ -38,20 +38,10 @@ const UiModel: FC<Props> = ({ src, position = [0, 0, 0], speed = 0.15 }) => {
     const { x: currentX, y: currentY, z: currentZ } = model.scene.position
     const [goalX, goalY, goalZ] = coordinate
 
-    const getDirect = (current: number, goal: number) => {
-      if (current > goal) {
-        return -1
-      } else if (current < goal) {
-        return 1
-      } else {
-        return 0
-      }
-    }
-
     const [offsetX, offsetY, offsetZ] = [
-      getDirect(currentX, goalX) * delta,
-      getDirect(currentY, goalY) * delta,
-      getDirect(currentZ, goalZ) * delta
+      (goalX - currentX) * delta,
+      (goalY - currentY) * delta,
+      (goalZ - currentZ) * delta
     ]
 
     model.scene.position.set(
