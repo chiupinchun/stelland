@@ -51,13 +51,17 @@ const UiModel: FC<Props> = ({ src, position = [0, 0, 0], speed = 0.15 }) => {
       Math.abs(goalZ - currentZ) > delta ? currentZ + offsetZ : goalZ
     )
 
-    const direction = getDirection(goalX - currentX, goalZ - currentZ)
-    model.scene.rotation.y = direction
+    const rawDirection = model.scene.rotation.y
+    const direction = getDirection(goalX - currentX, goalZ - currentZ, rawDirection)
+
+    if (direction !== rawDirection) {
+      model.scene.rotation.y = direction
+    }
   }
 
   return (
     <>
-      <primitive object={model.scene} position={rawPosition} />
+      <primitive object={model.scene} position={rawPosition.current} />
     </>
   )
 }
