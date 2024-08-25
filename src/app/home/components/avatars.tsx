@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { Sprite, sprites } from '@/app/common/constants/sprites'
+import { Sprite, sprites } from '@/app/common/configs/sprites'
 
 interface Props {
   onSelect?: (sprite: Sprite) => void
