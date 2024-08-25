@@ -5,20 +5,18 @@ import Ground from '@/app/common/components/r3f/ground'
 import StarNight from '@/app/common/components/r3f/star-night'
 import { sprites } from '@/app/common/constants/sprites'
 import { Coordinate3d } from '@/app/common/types/math'
+import Avatars from './components/avatars'
 
 interface Props { }
 
 const HomePage: FC<Props> = () => {
-  const spriteModels: {
-    model: string
-    position: Coordinate3d
-  }[] = sprites.map((sprite, index) => ({
-    model: sprite.model,
+  const spriteModels = sprites.map((sprite, index) => ({
+    ...sprite,
     position: [
       index % 3 - 1,
       0,
       -1 * Math.floor(index / 3)
-    ]
+    ] as Coordinate3d
   }))
 
   return (
@@ -28,9 +26,13 @@ const HomePage: FC<Props> = () => {
           <Ground />
           <StarNight count={100} />
           {spriteModels.map(sprite => (
-            <RandomMoveUiModel src={sprite.model} position={sprite.position} />
+            <RandomMoveUiModel key={sprite.key} src={sprite.model} position={sprite.position} />
           ))}
         </Scene>
+
+        <div className='absolute top-0 left-2 flex justify-center items-center py-2 h-full'>
+          <Avatars />
+        </div>
       </div>
     </>
   )
