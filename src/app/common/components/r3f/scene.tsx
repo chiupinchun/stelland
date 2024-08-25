@@ -11,7 +11,7 @@ const Scene: FC<Props> = ({ children }) => {
     <>
       <Canvas camera={{
         position: [0, 0.5, 1]
-      }}>
+      }} style={{ background: '#000000' }}>
         <directionalLight intensity={0.7} castShadow shadow-bias={-0.0004} position={[-20, 20, 20]}>
           <orthographicCamera attach="shadow-camera" args={[-20, 20, 20, -20]} />
         </directionalLight>
