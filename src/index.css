@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.parallelogram {
+  clip-path: polygon(10px 0, calc(100% + 10px) 0, calc(100% - 10px) 100%, 0 100%);
+}
+
+.meteor {
+  @apply py-1 ps-3 pe-6 lg:py-2 lg:ps-4 lg:pe-8 bg-gradient-to-r from-blue-500 to-transparent shadow-lg shadow-blue-500/50 transform -skew-x-12 text-blue-100 parallelogram;
+}
