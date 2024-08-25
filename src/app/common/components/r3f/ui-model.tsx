@@ -3,6 +3,7 @@ import { useFrame, useLoader } from '@react-three/fiber'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { AnimationMixer } from 'three'
 import { Coordinate3d } from '@/app/common/types/math'
+import { getDirection } from '@/app/common/utils/math'
 
 interface Props {
   src: string
@@ -49,6 +50,9 @@ const UiModel: FC<Props> = ({ src, position = [0, 0, 0], speed = 0.15 }) => {
       Math.abs(goalY - currentY) > delta ? currentY + offsetY : goalY,
       Math.abs(goalZ - currentZ) > delta ? currentZ + offsetZ : goalZ
     )
+
+    const direction = getDirection(goalX - currentX, goalZ - currentZ)
+    model.scene.rotation.y = direction
   }
 
   return (
