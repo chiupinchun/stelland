@@ -1,8 +1,8 @@
-import { FC, useEffect, useRef } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 import { useFrame, useLoader } from '@react-three/fiber'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
-import { AnimationMixer, Mesh } from 'three'
-import { Coordinate2d, Coordinate3d } from '@/app/common/types/math'
+import { AnimationMixer } from 'three'
+import { Coordinate3d } from '@/app/common/types/math'
 
 interface Props {
   src: string
@@ -69,3 +69,22 @@ const UiModel: FC<Props> = ({ src, position = [0, 0, 0], speed = 0.15 }) => {
 }
 
 export default UiModel
+
+export const RandomMoveUiModel: FC<Props> = ({ position: rawPosition = [0, 0, 0], ...otherProps }) => {
+  const [position, setPosition] = useState(rawPosition)
+
+  const randomMove = () => {
+    const getOffset = () => {
+      return -0.5 + Math.random()
+    }
+
+    setPosition(([x, y, z]) => [x + getOffset(), y, z + getOffset()])
+  }
+
+  useEffect(() => {
+    const time = 2000 + Math.random() * 3000
+    setTimeout(randomMove, time)
+  }, [position])
+
+  return <UiModel {...otherProps} position={position} />
+}
