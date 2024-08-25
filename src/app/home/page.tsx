@@ -7,6 +7,7 @@ import { Sprite, sprites } from '@/app/common/constants/sprites'
 import { Coordinate3d } from '@/app/common/types/math'
 import Avatars from './components/avatars'
 import { CAMERA_OFFSET } from '../common/constants/ui-model'
+import Dialog from './components/dialog'
 
 interface Props { }
 
@@ -38,6 +39,14 @@ const HomePage: FC<Props> = () => {
 
         <div className='absolute top-0 left-2 flex justify-center items-center py-2 h-full'>
           <Avatars onSelect={setSelectedSprite} />
+        </div>
+
+        <div className='absolute bottom-5 w-full flex justify-center items-center'>
+          {selectedSprite && <Dialog
+            avatar={selectedSprite.avatar} content={
+              `${selectedSprite.name}：\n${selectedSprite.lines}`
+            }
+          />}
         </div>
       </div>
     </>
