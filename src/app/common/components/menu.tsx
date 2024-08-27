@@ -26,7 +26,11 @@ const menu: MenuGroup[] = [
     title: '小遊戲',
     children: [
       {
-        title: '拼圖',
+        title: '星靈試煉',
+        href: '/orb-match/battle'
+      },
+      {
+        title: '追憶拼圖',
         href: '/puzzle'
       }
     ]

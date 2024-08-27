@@ -2,6 +2,7 @@ import { createHashRouter } from "react-router-dom";
 import App from "./App";
 import HomePage from "@/app/home/page";
 import Puzzle from "@/app/puzzle/page";
+import OrbPuzzleBattle from "@/app/orb-match/battle/page";
 
 export const router = createHashRouter([
   {
@@ -15,6 +16,15 @@ export const router = createHashRouter([
       {
         path: 'puzzle',
         Component: Puzzle
+      },
+      {
+        path: 'orb-match',
+        children: [
+          {
+            path: 'battle',
+            Component: OrbPuzzleBattle
+          }
+        ]
       }
     ]
   }
