@@ -6,7 +6,12 @@ interface Props { }
 const OrbPuzzleBattle: FC<Props> = () => {
   return (
     <>
-      <OrbPuzzle />
+      <div className='flex w-screen h-screen'>
+        <div className='flex-1 text-white'>boss area</div>
+        <div className='flex-1 flex items-center'>
+          <OrbPuzzle />
+        </div>
+      </div>
     </>
   )
 }

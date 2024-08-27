@@ -61,7 +61,7 @@ const OrbPuzzle: FC<Props> = () => {
         height: ORB_SIZE * Y_COUNT + ORB_GAP * (Y_COUNT - 1) + 'px'
       }}>
         {orbs.map(orb => (
-          <div key={orb.id} className='absolute rounded' style={{
+          <div key={orb.id} className='absolute rounded cursor-pointer' style={{
             width: ORB_SIZE + 'px',
             height: ORB_SIZE + 'px',
             left: orb.x * (ORB_SIZE + ORB_GAP) + 'px',
