@@ -21,3 +21,7 @@ export const getDirection = (deltaX: number, deltaZ: number, rawDirection: numbe
     ? Math.atan(deltaX / deltaZ)
     : Math.atan(deltaX / deltaZ) + Math.PI
 }
+
+export const getRandomInt = (min: number, max: number) => {
+  return Math.floor(min + Math.random() * (max - min))
+}
