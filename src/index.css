@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  background-color: #000000;
+}
+
 .parallelogram {
   clip-path: polygon(10px 0, calc(100% + 10px) 0, calc(100% - 10px) 100%, 0 100%);
 }
