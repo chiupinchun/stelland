@@ -38,7 +38,7 @@ class Orb {
 
 interface Props { }
 
-const OrbPuzzle: FC<Props> = () => {
+const OrbMatch: FC<Props> = () => {
   const [orbs, setOrbs] = useState<Orb[]>([])
 
   const initOrbs = () => {
@@ -74,4 +74,4 @@ const OrbPuzzle: FC<Props> = () => {
   )
 }
 
-export default OrbPuzzle
+export default OrbMatch
