@@ -66,7 +66,7 @@ const Menu: FC<Props> = () => {
               >
                 {
                   group.href
-                    ? <Link to={group.href} className='block meteor'>{group.title}</Link>
+                    ? <Link onClick={() => setIsMenuOpen(false)} to={group.href} className='block meteor'>{group.title}</Link>
                     : <a className='flex items-center gap-2 cursor-pointer meteor'>
                       {group.title}
                       <ChevronDown className={'transition ' + (isGroupActive(group) ? 'rotate-180' : 'rotate-0')} width={20} height={20} />
@@ -78,7 +78,7 @@ const Menu: FC<Props> = () => {
                   }>
                     {group.children.map(link => (
                       <li key={link.title}>
-                        <Link to={link.href} className='block meteor'>{link.title}</Link>
+                        <Link onClick={() => setIsMenuOpen(false)} to={link.href} className='block meteor'>{link.title}</Link>
                       </li>
                     ))}
                   </ul>
