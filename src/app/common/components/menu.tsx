@@ -15,6 +15,10 @@ interface MenuGroup {
 
 const menu: MenuGroup[] = [
   {
+    title: '回首頁',
+    href: '/'
+  },
+  {
     title: '服務',
     children: []
   },
@@ -51,8 +55,8 @@ const Menu: FC<Props> = () => {
     <>
       <div className='fixed right-5 top-5 z-10'>
         <nav className={
-          'absolute flex justify-center w-96 transition-all '
-          + (isMenuOpen ? 'right-5 lg:right-16 opacity-100' : '-right-96 opacity-0')
+          'absolute flex justify-center w-max transition-all '
+          + (isMenuOpen ? 'right-16 opacity-100' : '-right-[100vw] opacity-0')
         }>
           <ul className='flex items-start gap-10 lg:gap-20'>
             {menu.map(group => (
