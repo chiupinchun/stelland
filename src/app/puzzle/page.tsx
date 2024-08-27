@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import SpiritsPicture from '@/assets/images/spirits.webp'
 
 const PIECE_COUNT_X = 4
