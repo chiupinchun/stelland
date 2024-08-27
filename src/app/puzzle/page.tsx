@@ -92,7 +92,7 @@ const Puzzle: FC<Props> = () => {
           <h2>插槽區</h2>
           <ul className='grid grid-cols-4 gap-2'>
             {slots.map(piece => (
-              <li key={piece.id + '' + piece.isEmpty} className={selectedPice === piece ? 'shadow-2xl shadow-blue-300' : ''}>
+              <li key={piece.id + '' + piece.isEmpty} className={'shadow-inner shadow-slate-300 ' + (selectedPice === piece ? 'shadow-2xl shadow-blue-300' : '')}>
                 <Piece onClick={() => handleSelectPiece(piece)} {...piece} />
               </li>
             ))}
