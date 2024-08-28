@@ -9,7 +9,7 @@ const OrbMatchBattle: FC<Props> = () => {
       <div className='flex w-screen h-screen'>
         <div className='flex-1 text-white'>boss area</div>
         <div className='flex-1 flex items-center'>
-          <OrbMatch />
+          <OrbMatch ready={true} />
         </div>
       </div>
     </>

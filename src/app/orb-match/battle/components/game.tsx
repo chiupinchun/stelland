@@ -43,9 +43,11 @@ class Orb {
   }
 }
 
-interface Props { }
+interface Props {
+  ready: boolean
+}
 
-const OrbMatch: FC<Props> = () => {
+const OrbMatch: FC<Props> = ({ ready }) => {
   const [orbs, setOrbs] = useState<Orb[]>([])
 
   const initOrbs = () => {
@@ -83,7 +85,7 @@ const OrbMatch: FC<Props> = () => {
 
   const [draggingOrb, setDraggingOrb] = useState<Orb | null>(null)
   const handleDropOrb = () => {
-    if (!draggingOrb) { return }
+    if (!ready || !draggingOrb) { return }
     setDraggingOrb(null)
   }
 
