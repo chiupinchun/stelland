@@ -1,6 +1,6 @@
 export const X_COUNT = 6
 export const Y_COUNT = 5
-export const ORB_SIZE = 40
+export const ORB_SIZE = 50
 export const ORB_GAP = 10
 
 export const ORB_COLOR_MAP = {
