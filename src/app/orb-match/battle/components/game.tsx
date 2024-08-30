@@ -59,9 +59,10 @@ class Orb {
 
 interface Props {
   ready: boolean
+  onMatched?: (batch: Orb[]) => void
 }
 
-const OrbMatch: FC<Props> = ({ ready }) => {
+const OrbMatch: FC<Props> = ({ ready, onMatched }) => {
   const [orbs, setOrbs] = useState<Orb[]>([])
 
   const initOrbs = () => {
@@ -106,7 +107,7 @@ const OrbMatch: FC<Props> = ({ ready }) => {
     setDraggingOrb(null)
   }
 
-  const checkMatch = () => {
+  const checkMatch = async () => {
     const checkedHorizontalOrbs = new Set<Orb>()
     const checkHorizontal = (orb: Orb, strict: boolean) => {
       if (checkedHorizontalOrbs.has(orb)) { return [] }
@@ -196,8 +197,14 @@ const OrbMatch: FC<Props> = ({ ready }) => {
         ...checkVertical(orb, true)
       ]
       if (batch.length) { batches.push(batch) }
-      console.log(batch)
     })
+
+    for (let i = 0; i < batches.length; i++) {
+      const batch = batches[i]
+      batch.forEach(orb => orb.status = OrbStatus.Matched)
+      if (onMatched) { onMatched(batch) }
+      await new Promise(res => setTimeout(res, 150))
+    }
     console.log(batches)
   }
 
@@ -219,8 +226,8 @@ const OrbMatch: FC<Props> = ({ ready }) => {
 
   const getOrbStyle = (orb: Orb): React.CSSProperties => {
     const baseStyle = {
-      width: ORB_SIZE + 'px',
-      height: ORB_SIZE + 'px',
+      width: (orb.status === OrbStatus.Normal ? ORB_SIZE : 0) + 'px',
+      height: (orb.status === OrbStatus.Normal ? ORB_SIZE : 0) + 'px',
       backgroundColor: ORB_COLOR_MAP[orb.type]
     }
     const isDragging = orb === draggingOrb
@@ -249,7 +256,7 @@ const OrbMatch: FC<Props> = ({ ready }) => {
         {orbs.map(orb => (
           <div
             key={orb.id}
-            className='absolute border border-slate-300 rounded cursor-pointer'
+            className='absolute border border-slate-300 rounded cursor-pointer transition-all'
             style={getOrbStyle(orb)}
             onClick={() => draggingOrb === orb ? handleDropOrb() : setDraggingOrb(orb)}
           >{orb.id}</div>
