@@ -1,3 +1,4 @@
+import { useThrottle } from '@/app/common/hooks/useThrottle'
 import { getRandomInt } from '@/app/common/utils/math'
 import { FC, useEffect, useRef, useState } from 'react'
 
@@ -81,7 +82,7 @@ const OrbMatch: FC<Props> = ({ ready, onMatched }) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
   const orbContainerRef = useRef<HTMLDivElement>(null!)
-  const handleMouseMove: React.MouseEventHandler<HTMLDivElement> = (e) => {
+  const handleMouseMove: React.MouseEventHandler<HTMLDivElement> = useThrottle((e) => {
     const container = orbContainerRef.current
     if (!container) { return }
     const rect = container.getBoundingClientRect()
@@ -96,7 +97,8 @@ const OrbMatch: FC<Props> = ({ ready, onMatched }) => {
     ) {
       setMousePosition({ x, y })
     }
-  }
+  }, 50)
+
 
   const [draggingOrb, setDraggingOrb] = useState<Orb | null>(null)
   const handleDropOrb = () => {
