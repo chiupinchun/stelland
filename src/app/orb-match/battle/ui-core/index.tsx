@@ -5,13 +5,11 @@ import { getMatchedOrbs, Orb, OrbStatus, OrbTypeWeights } from './orb'
 import { getInitialOrbs } from './utils'
 
 interface Props {
-  ready: boolean
   weights?: OrbTypeWeights
   onMatched?: (batch: Orb[]) => void
 }
 
 const OrbMatch: FC<Props> = ({
-  ready,
   weights = {
     fire: 10,
     water: 10,
@@ -64,9 +62,17 @@ const OrbMatch: FC<Props> = ({
     }
   }, 50)
 
+  enum Process {
+    None,
+    Matching,
+    Clearing,
+    Falling
+  }
+  const [process, setProcess] = useState(Process.None)
+
   const [draggingOrb, setDraggingOrb] = useState<Orb | null>(null)
   const handleDropOrb = () => {
-    if (!ready || !draggingOrb) { return }
+    if (!draggingOrb) { return }
 
     setDraggingOrb(null)
 
@@ -75,6 +81,12 @@ const OrbMatch: FC<Props> = ({
 
   const checkMatch = async () => {
     const batches = getMatchedOrbs(orbs)
+    if (!batches.length) {
+      setProcess(Process.None)
+      return
+    }
+
+    setProcess(Process.Matching)
 
     // set status: matched
     for (let i = 0; i < batches.length; i++) {
@@ -85,54 +97,58 @@ const OrbMatch: FC<Props> = ({
       await new Promise(res => setTimeout(res, ORB_CLEAR_TRANSITION))
     }
 
-    setOrbs(orbs => {
-      /**
-       * orderedOrbs[n] collect orbs which prop x = n, and each sublist are sorted by y
-       */
-      const orderedOrbs: Orb[][] = new Array(X_COUNT)
-        .fill(undefined)
-        .map(() => [])
+    setProcess(Process.Clearing)
+  }
 
-      orbs.forEach(orb => {
-        // filter matched orbs
-        if (orb.status === OrbStatus.Matched) { return }
+  useEffect(() => {
+    switch (process) {
+      case Process.Clearing:
 
-        // order by x, sort by y
-        const col = orderedOrbs[orb.x]
-        for (let i = 0; i < col.length; i++) {
-          if (orb.y < col[i].y) {
-            col.splice(i, 0, orb)
-            return
+        /**
+         * orderedOrbs[n] collect orbs which prop x = n, and each sublist are sorted by y
+         */
+        const orderedOrbs: Orb[][] = new Array(X_COUNT)
+          .fill(undefined)
+          .map(() => [])
+
+        orbs.forEach(orb => {
+          // filter matched orbs
+          if (orb.status === OrbStatus.Matched) { return }
+
+          // order by x, sort by y
+          const col = orderedOrbs[orb.x]
+          for (let i = 0; i < col.length; i++) {
+            if (orb.y < col[i].y) {
+              col.splice(i, 0, orb)
+              return
+            }
+          }
+          col.push(orb)
+        })
+
+        // create new orbs and fall old orbs dwon
+        const newOrbs: Orb[] = []
+        for (let x = 0; x < X_COUNT; x++) {
+          for (let y = 0; y < Y_COUNT; y++) {
+            const orb = orderedOrbs[x]?.[y] ?? new Orb(x, y, weights, true)
+            orb.y = y
+            newOrbs.push(orb)
           }
         }
-        col.push(orb)
-      })
 
-      // create new orbs and fall old orbs dwon
-      const newOrbs: Orb[] = []
-      for (let x = 0; x < X_COUNT; x++) {
-        for (let y = 0; y < Y_COUNT; y++) {
-          const orb = orderedOrbs[x]?.[y] ?? new Orb(x, y, weights, true)
-          orb.y = y
-          newOrbs.push(orb)
-        }
-      }
+        setOrbs(newOrbs)
+        setTimeout(() => setProcess(Process.Falling), 50)
 
-      return newOrbs
-    })
+        break
 
-    if (batches.length) {
-      // fall new orbs down
-      setOrbs(orbs => {
+      case Process.Falling:
         orbs.forEach(orb => orb.status = OrbStatus.Normal)
-        return [...orbs]
-      })
+        setOrbs([...orbs])
 
-      await new Promise(res => setTimeout(res, ORB_CLEAR_TRANSITION))
-
-      checkMatch()
+        setTimeout(checkMatch, ORB_CLEAR_TRANSITION)
+        break
     }
-  }
+  }, [process])
 
   useEffect(() => {
     if (!draggingOrb) { return }
@@ -169,15 +185,18 @@ const OrbMatch: FC<Props> = ({
       : {
         ...baseStyle,
         left: orb.x * (ORB_SIZE + ORB_GAP) + ORB_GAP + 'px',
-        bottom: orb.status === OrbStatus.New && orbContainerInfo
-          ? orbContainerInfo.height + 'px'
-          : orb.y * (ORB_SIZE + ORB_GAP) + ORB_GAP + 'px',
+        bottom: orb.y * (ORB_SIZE + ORB_GAP) + ORB_GAP + (
+          orb.status === OrbStatus.New && orbContainerInfo
+            ? orbContainerInfo.height
+            : 0
+        ) + 'px'
+
       }
   }
 
   return (
     <>
-      <div className='border rounded'>
+      <div className='border rounded overflow-hidden'>
         <div className='relative' style={{
           width: ORB_SIZE * X_COUNT + ORB_GAP * (X_COUNT + 1) + 'px',
           height: ORB_SIZE * Y_COUNT + ORB_GAP * (Y_COUNT + 1) + 'px'
@@ -188,8 +207,11 @@ const OrbMatch: FC<Props> = ({
               key={orb.id}
               className='absolute border border-slate-300 rounded cursor-pointer'
               style={getOrbStyle(orb)}
-              onClick={() => draggingOrb === orb ? handleDropOrb() : setDraggingOrb(orb)}
-            >{orb.status}</div>
+              onClick={() => {
+                if (process) { return }
+                draggingOrb === orb ? handleDropOrb() : setDraggingOrb(orb)
+              }}
+            ></div>
           ))}
         </div>
       </div>
