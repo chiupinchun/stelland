@@ -2,7 +2,8 @@ import { attackTypes, ORB_GAP, ORB_SIZE } from "./config"
 
 export enum OrbStatus {
   Normal,
-  Matched
+  Matched,
+  New
 }
 
 export type OrbTypeWeights = Record<typeof attackTypes[number], number>
@@ -16,11 +17,14 @@ export class Orb {
   constructor(
     public x: number,
     public y: number,
-    weights: OrbTypeWeights
+    weights: OrbTypeWeights,
+    isNew?: boolean
   ) {
     this.id = ++currentOrbId
 
     this.type = this.randomType(weights)
+
+    if (isNew) { this.status = OrbStatus.New }
   }
 
   randomType(weights: OrbTypeWeights) {
