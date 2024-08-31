@@ -1,12 +1,12 @@
 import { request } from "../core/request"
 
-interface UserInfo {
+export interface UserInfoResponse {
   weapon: number | null
   blessings: number[]
   items: number[]
 }
 
-export const createUser = (payload: UserInfo) => {
+export const createUser = (payload: UserInfoResponse) => {
   return request('/orb-match/user', {
     method: 'POST',
     body: payload
@@ -14,10 +14,10 @@ export const createUser = (payload: UserInfo) => {
 }
 
 export const getUserInfo = () => {
-  return request<UserInfo>('/orb-match/user')
+  return request<UserInfoResponse>('/orb-match/user')
 }
 
-export const updateUserInfo = (payload: UserInfo) => {
+export const updateUserInfo = (payload: UserInfoResponse) => {
   return request('/orb-match/user', {
     method: 'PUT',
     body: payload

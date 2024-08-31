@@ -3,8 +3,7 @@ import Scene from '@/app/common/components/r3f/scene';
 import Tunnel from './components/tunnel';
 import Camera from './components/camera';
 import { Link } from 'react-router-dom';
-import { User, userInfoToUser, userToUserInfo } from '../core/user';
-import { createUser, getUserInfo } from '@/api/module/orb-match';
+import { createUser, getUserInfo, UserInfoResponse } from '@/api/module/orb-match';
 
 const WALK_DURATION = 2000
 const STAGE_COUNT = 3
@@ -12,7 +11,7 @@ const STAGE_COUNT = 3
 const TunnelPage: React.FC = () => {
   const [isWalking, setIsWalking] = useState(false)
   const [stage, setStage] = useState(0)
-  const [user, setUser] = useState<User>({
+  const [user, setUser] = useState<UserInfoResponse>({
     weapon: null,
     blessings: [],
     items: []
@@ -35,9 +34,9 @@ const TunnelPage: React.FC = () => {
   useEffect(() => {
     const userInfo = getUserInfo()
     if (userInfo) {
-      setUser(userInfoToUser(userInfo))
+      setUser(userInfo)
     } else {
-      createUser(userToUserInfo(user))
+      createUser(user)
     }
   }, [])
 
