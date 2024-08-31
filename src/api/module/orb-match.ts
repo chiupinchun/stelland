@@ -6,29 +6,25 @@ interface UserInfo {
   items: number[]
 }
 
-export const createUser = () => {
+export const createUser = (payload: UserInfo) => {
   return request('/orb-match/user', {
     method: 'POST',
-    body: {
-      weapon: null,
-      blessing: [],
-      items: []
-    }
+    body: payload
   })
 }
 
-export const getUser = () => {
+export const getUserInfo = () => {
   return request<UserInfo>('/orb-match/user')
 }
 
-export const updateUser = (payload: UserInfo) => {
+export const updateUserInfo = (payload: UserInfo) => {
   return request('/orb-match/user', {
     method: 'PUT',
     body: payload
   })
 }
 
-export const deleteUser = () => {
+export const deleteUserInfo = () => {
   return request('/orb-match/user', {
     method: 'DELETE'
   })
