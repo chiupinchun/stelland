@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Scene from '@/app/common/components/r3f/scene';
 import Tunnel from './components/tunnel';
+import Camera from './components/camera';
+
+const WALK_DURATION = 2500
 
 const TunnelPage: React.FC = () => {
+  const [isWalking, setIsWalking] = useState(false)
+  const [isStarted, setIsStarted] = useState(false)
 
+  const handleStart = () => {
+    setIsStarted(true)
+    setIsWalking(true)
+
+    setTimeout(() => {
+      setIsWalking(false)
+    }, WALK_DURATION)
+  }
 
 
   return (
@@ -19,8 +32,15 @@ const TunnelPage: React.FC = () => {
         {/* 方向光 */}
         <directionalLight position={[10, 10, 10]} intensity={1} />
         <directionalLight position={[-10, -10, -10]} intensity={1} />
+
+        <Camera moving={isWalking} />
+
         <Tunnel />
       </Scene>
+
+      <div className='fixed top-0 w-screen h-screen flex justify-center items-center'>
+        {isStarted || <button onClick={handleStart} className='px-5 py-2 rounded-xl bg-slate-300 hover:bg-slate-100'>開始試煉</button>}
+      </div>
     </div>
   );
 };
