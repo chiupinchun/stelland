@@ -5,17 +5,37 @@ export enum OrbStatus {
   Matched
 }
 
+export type OrbTypeWeights = Record<typeof attackTypes[number], number>
+
 let currentOrbId = 0
 export class Orb {
   id: number
+  type: typeof attackTypes[number]
   status = OrbStatus.Normal
 
   constructor(
-    public readonly type: typeof attackTypes[number],
     public x: number,
-    public y: number
+    public y: number,
+    weights: OrbTypeWeights
   ) {
     this.id = ++currentOrbId
+
+    this.type = this.randomType(weights)
+  }
+
+  randomType(weights: OrbTypeWeights) {
+    const weightValues = attackTypes.map(type => weights[type] ?? 0)
+    const total = weightValues.reduce((total, current) => total + current, 0)
+    let random = Math.random() * total
+    for (let i = 0; i < weightValues.length; i++) {
+      const currentWeight = weightValues[i]
+      if (random <= currentWeight) {
+        return attackTypes[i]
+      }
+      random -= currentWeight
+    }
+    console.warn('invalid attack type weights')
+    return attackTypes[attackTypes.length - 1]
   }
 
   checkInRange(coordinate: { x: number, y: number }) {

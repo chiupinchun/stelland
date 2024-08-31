@@ -1,27 +1,30 @@
 import { useThrottle } from '@/app/common/hooks/useThrottle'
-import { getRandomInt } from '@/app/common/utils/math'
-import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { attackTypes, ORB_COLOR_MAP, ORB_GAP, ORB_SIZE, X_COUNT, Y_COUNT } from './config'
-import { getMatchedOrbs, Orb, OrbStatus } from './orb'
+import { FC, useCallback, useEffect, useRef, useState } from 'react'
+import { ORB_COLOR_MAP, ORB_GAP, ORB_SIZE, X_COUNT, Y_COUNT } from './config'
+import { getMatchedOrbs, Orb, OrbStatus, OrbTypeWeights } from './orb'
+import { getInitialOrbs } from './utils'
 
 interface Props {
   ready: boolean
+  weights?: OrbTypeWeights
   onMatched?: (batch: Orb[]) => void
 }
 
-const OrbMatch: FC<Props> = ({ ready, onMatched }) => {
+const OrbMatch: FC<Props> = ({
+  ready,
+  weights = {
+    fire: 10,
+    water: 10,
+    ground: 10,
+    poison: 10,
+    physic: 10,
+    heal: 8
+  },
+  onMatched
+}) => {
   const [orbs, setOrbs] = useState<Orb[]>([])
 
-  const initOrbs = useCallback(() => {
-    const orbs = []
-    for (let x = 0; x < X_COUNT; x++) {
-      for (let y = 0; y < Y_COUNT; y++) {
-        const typeIndex = getRandomInt(0, attackTypes.length)
-        orbs.push(new Orb(attackTypes[typeIndex], x, y))
-      }
-    }
-    setOrbs(orbs)
-  }, [])
+  const initOrbs = useCallback(() => setOrbs(getInitialOrbs(weights)), [])
 
   useEffect(initOrbs, [])
 
