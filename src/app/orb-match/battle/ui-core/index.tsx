@@ -7,6 +7,8 @@ import { getInitialOrbs } from './utils'
 interface Props {
   weights?: OrbTypeWeights
   onMatched?: (batch: Orb[]) => void
+  onProcessStart?: () => void
+  onProcessFinish?: () => void
 }
 
 const OrbMatch: FC<Props> = ({
@@ -18,7 +20,7 @@ const OrbMatch: FC<Props> = ({
     physic: 10,
     heal: 8
   },
-  onMatched
+  onMatched, onProcessStart, onProcessFinish
 }) => {
   const [orbs, setOrbs] = useState<Orb[]>([])
 
@@ -80,9 +82,12 @@ const OrbMatch: FC<Props> = ({
   }
 
   const checkMatch = async () => {
+    onProcessStart?.()
+
     const batches = getMatchedOrbs(orbs)
     if (!batches.length) {
       setProcess(Process.None)
+      onProcessFinish?.()
       return
     }
 
