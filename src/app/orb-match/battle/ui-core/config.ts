@@ -3,6 +3,8 @@ export const Y_COUNT = 5
 export const ORB_SIZE = 50
 export const ORB_GAP = 10
 
+export const ORB_CLEAR_TRANSITION = 200
+
 export const ORB_COLOR_MAP = {
   fire: '#FE3434',
   water: '#88FFFC',

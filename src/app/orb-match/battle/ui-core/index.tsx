@@ -1,6 +1,6 @@
 import { useThrottle } from '@/app/common/hooks/useThrottle'
 import { FC, useCallback, useEffect, useRef, useState } from 'react'
-import { ORB_COLOR_MAP, ORB_GAP, ORB_SIZE, X_COUNT, Y_COUNT } from './config'
+import { ORB_CLEAR_TRANSITION, ORB_COLOR_MAP, ORB_GAP, ORB_SIZE, X_COUNT, Y_COUNT } from './config'
 import { getMatchedOrbs, Orb, OrbStatus, OrbTypeWeights } from './orb'
 import { getInitialOrbs } from './utils'
 
@@ -80,7 +80,8 @@ const OrbMatch: FC<Props> = ({
       const batch = batches[i]
       batch.forEach(orb => orb.status = OrbStatus.Matched)
       if (onMatched) { onMatched(batch) }
-      await new Promise(res => setTimeout(res, 150))
+      setOrbs([...orbs])
+      await new Promise(res => setTimeout(res, ORB_CLEAR_TRANSITION))
     }
   }
 
@@ -104,7 +105,8 @@ const OrbMatch: FC<Props> = ({
     const baseStyle = {
       width: (orb.status === OrbStatus.Normal ? ORB_SIZE : 0) + 'px',
       height: (orb.status === OrbStatus.Normal ? ORB_SIZE : 0) + 'px',
-      backgroundColor: ORB_COLOR_MAP[orb.type]
+      backgroundColor: ORB_COLOR_MAP[orb.type],
+      transition: ORB_CLEAR_TRANSITION / 1000 + 's'
     }
     const isDragging = orb === draggingOrb
 
@@ -128,12 +130,12 @@ const OrbMatch: FC<Props> = ({
         <div className='relative' style={{
           width: ORB_SIZE * X_COUNT + ORB_GAP * (X_COUNT + 1) + 'px',
           height: ORB_SIZE * Y_COUNT + ORB_GAP * (Y_COUNT + 1) + 'px'
-        }} ref={orbContainerRef} onMouseMove={handleMouseMove} onMouseLeave={handleDropOrb}
+        }} ref={orbContainerRef} onMouseMove={handleMouseMove}
         >
           {orbs.map(orb => (
             <div
               key={orb.id}
-              className='absolute border border-slate-300 rounded cursor-pointer transition-all'
+              className='absolute border border-slate-300 rounded cursor-pointer'
               style={getOrbStyle(orb)}
               onClick={() => draggingOrb === orb ? handleDropOrb() : setDraggingOrb(orb)}
             ></div>
