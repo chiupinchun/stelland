@@ -27,7 +27,7 @@ const menu: MenuGroup[] = [
     children: [
       {
         title: '星靈試煉',
-        href: '/orb-match/battle'
+        href: '/orb-match/tunnel'
       },
       {
         title: '追憶拼圖',
