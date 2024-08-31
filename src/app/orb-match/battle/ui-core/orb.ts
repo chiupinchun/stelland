@@ -79,6 +79,7 @@ export const getMatchedOrbs = (orbs: Orb[]) => {
     // 3match: true, strict: any
     if (horizontalSameColorOrbs.length >= 3) {
       horizontalSameColorOrbs.forEach(orb => {
+        checkedHorizontalOrbs.add(orb)
         const verticalSameColorOrbs = checkVertical(orb, false)
         horizontalSameColorOrbs.push(...verticalSameColorOrbs)
       })
@@ -120,6 +121,7 @@ export const getMatchedOrbs = (orbs: Orb[]) => {
     // 3match: true, strict: any
     if (verticalSameColorOrbs.length >= 3) {
       verticalSameColorOrbs.forEach(orb => {
+        checkedVerticalOrbs.add(orb)
         const horizontalSameColorOrbs = checkHorizontal(orb, false)
         verticalSameColorOrbs.push(...horizontalSameColorOrbs)
       })

@@ -68,9 +68,9 @@ const OrbMatch: FC<Props> = ({
   const handleDropOrb = () => {
     if (!ready || !draggingOrb) { return }
 
-    checkMatch()
-
     setDraggingOrb(null)
+
+    checkMatch()
   }
 
   const checkMatch = async () => {
