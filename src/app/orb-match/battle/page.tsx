@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import OrbMatch from './components/game'
+import OrbMatch from './ui-core'
 
 interface Props { }
 
