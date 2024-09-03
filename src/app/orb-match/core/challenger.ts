@@ -11,10 +11,21 @@ export class Challenger {
   groundDmg = 0
   poisonDmg = 0
   physicDmg = 0
+  increaseDmg = 0
   fireResistance = 0
   waterResistance = 0
   groundResistance = 0
   poisonResistance = 0
   physicResistance = 0
+  maxResistance = 50
   healRate = 0
+
+  receiveHeal(value: number) {
+    value = Math.floor(value * (1 + this.healRate / 100))
+    this.hp = Math.min(this.hp + value, this.maxHp)
+  }
+
+  receiveSheild(value: number) {
+    this.sheild = Math.max(this.sheild, value)
+  }
 }
