@@ -25,3 +25,7 @@ export const getDirection = (deltaX: number, deltaZ: number, rawDirection: numbe
 export const getRandomInt = (min: number, max: number) => {
   return Math.floor(min + Math.random() * (max - min))
 }
+
+export const randomByRate = (rate: number) => {
+  return Math.random() < rate
+}

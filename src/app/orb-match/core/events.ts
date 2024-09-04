@@ -3,7 +3,7 @@ import { ancientSpriteWand, EnergySword, Hammer, Microphone, RockArmor, Scooping
 import { AtkUp, CriticalMaster, DefUp, FireMaster, GroundMaster, HealMaster, PhysicMaster, PoisonMaster, WaterMaster, HealthMaster } from "./blessings"
 import { Meat, Protect } from "./items"
 
-interface Event {
+export interface Event {
   id: number
   name: string
   description: string
