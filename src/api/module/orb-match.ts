@@ -4,6 +4,8 @@ export interface UserInfoResponse {
   weapon: number | null
   blessings: number[]
   items: number[]
+
+  stage: number
 }
 
 export const createUser = (payload: UserInfoResponse) => {
@@ -20,7 +22,8 @@ export const getUserInfo = async () => {
     user = {
       weapon: null,
       blessings: [],
-      items: []
+      items: [],
+      stage: 1
     }
     createUser(user)
   }
