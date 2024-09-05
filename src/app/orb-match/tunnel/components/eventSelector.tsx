@@ -64,11 +64,14 @@ const EventSelector: React.FC<{
         </div>
       ))}
     </div>
-    <button
-      onClick={confirmEvent}
-      disabled={selectedEvent === null}
-      className='mt-16 px-12 py-2 rounded bg-blue-200 hover:bg-blue-100 disabled:bg-gray-400 cursor-pointer disabled:cursor-not-allowed'
-    >確認</button>
+    <div className="flex justify-center mt-16 w-full">
+      <button
+        onClick={confirmEvent}
+        disabled={selectedEvent === null}
+        className='px-12 py-2 rounded bg-blue-200 hover:bg-blue-100 disabled:bg-gray-400 cursor-pointer disabled:cursor-not-allowed'
+      >確認</button>
+    </div>
+
   </>)
 }
 

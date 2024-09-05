@@ -7,6 +7,7 @@ import { getUserInfo, updateUserInfo } from '@/api/module/orb-match';
 import EventSelector from './components/eventSelector';
 import { useFetch } from '@/api/core/useFetch';
 import { Event } from '../core/events';
+import { getWeaponById } from '../core/weapons';
 
 const WALK_DURATION = 2000
 const STAGE_COUNT = 10
@@ -56,12 +57,24 @@ const TunnelCore: React.FC<{
     }>
       {isStarted
         ? (<>
-          {user.stage % STAGE_COUNT !== 0 && !isWalking
-            ? <EventSelector onSelect={handleSelectEvent} stage={user.stage} />
-            : null}
-          {user.stage % STAGE_COUNT === 0 && !isWalking ? <Link to='/orb-match/battle' className='px-5 py-2 rounded-xl bg-slate-300 hover:bg-slate-100'>
-            謁見星靈
-          </Link> : null}
+          <div className='w-fit'>
+            <div className='flex justify-between mb-10 w-full text-blue-200'>
+              <div>
+                {user.weapon && <p>武器：{getWeaponById(user.weapon).name}</p>}
+                <p>已獲得祝福（{user.blessings.length}）</p>
+                <p>已獲得道具（{user.items.length}）</p>
+              </div>
+              <div>
+                <p>當前層數：第{user.stage}層</p>
+              </div>
+            </div>
+            {user.stage % STAGE_COUNT !== 0 && !isWalking
+              ? <EventSelector onSelect={handleSelectEvent} stage={user.stage} />
+              : null}
+            {user.stage % STAGE_COUNT === 0 && !isWalking ? <Link to='/orb-match/battle' className='px-5 py-2 rounded-xl bg-slate-300 hover:bg-slate-100'>
+              謁見星靈
+            </Link> : null}
+          </div>
         </>)
         : <button onClick={start} className='px-5 py-2 rounded-xl bg-slate-300 hover:bg-slate-100'>開始試煉</button>
       }
