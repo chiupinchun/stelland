@@ -13,8 +13,19 @@ export const createUser = (payload: UserInfoResponse) => {
   })
 }
 
-export const getUserInfo = () => {
-  return request<UserInfoResponse>('/orb-match/user')
+export const getUserInfo = async () => {
+  let user = request<UserInfoResponse>('/orb-match/user')
+
+  if (!user) {
+    user = {
+      weapon: null,
+      blessings: [],
+      items: []
+    }
+    createUser(user)
+  }
+
+  return user
 }
 
 export const updateUserInfo = (payload: UserInfoResponse) => {

@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Scene from '@/app/common/components/r3f/scene';
 import Tunnel from './components/tunnel';
 import Camera from './components/camera';
 import { Link } from 'react-router-dom';
-import { createUser, getUserInfo, UserInfoResponse } from '@/api/module/orb-match';
+import { getUserInfo, updateUserInfo } from '@/api/module/orb-match';
 import EventSelector from './components/eventSelector';
+import { useFetch } from '@/api/core/useFetch';
+import { Event } from '../core/events';
 
 const WALK_DURATION = 2000
 const STAGE_COUNT = 10
@@ -12,11 +14,7 @@ const STAGE_COUNT = 10
 const TunnelPage: React.FC = () => {
   const [isWalking, setIsWalking] = useState(false)
   const [stage, setStage] = useState(0)
-  const [user, setUser] = useState<UserInfoResponse>({
-    weapon: null,
-    blessings: [],
-    items: []
-  })
+  const { data: user, refresh: refreshUser } = useFetch(getUserInfo, [])
 
   const nextStage = () => {
     setIsWalking(true)
@@ -27,19 +25,14 @@ const TunnelPage: React.FC = () => {
     }, WALK_DURATION)
   }
 
-  const handleSelectEvent = () => {
+  const handleSelectEvent = (event: Event) => {
+    if (!user) { throw new Error('user not defined') }
     // TODO: post event
+    event.effect(user)
+    updateUserInfo(user)
+    refreshUser()
     nextStage()
   }
-
-  useEffect(() => {
-    const userInfo = getUserInfo()
-    if (userInfo) {
-      setUser(userInfo)
-    } else {
-      createUser(user)
-    }
-  }, [])
 
   return (
     <div className="h-screen">

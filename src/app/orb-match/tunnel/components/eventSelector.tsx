@@ -5,7 +5,7 @@ import { LEGEND_EVENT_RATE, RARE_EVENT_RATE } from "../constants/rate"
 
 const EventSelector: React.FC<{
   stage: number,
-  onSelect: () => void
+  onSelect: (event: Event) => void
 }> = ({ stage, onSelect }) => {
   const events = useMemo(() => {
     const pickupEvents: Event[] = []
@@ -46,7 +46,7 @@ const EventSelector: React.FC<{
     if (!selectedEvent) { return }
 
     setSelectedEvent(null)
-    onSelect()
+    onSelect(selectedEvent)
   }
 
   return (<>
