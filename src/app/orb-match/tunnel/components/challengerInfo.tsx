@@ -4,7 +4,7 @@ import { FC } from 'react'
 import { Challenger } from '@/app/orb-match/core/challenger'
 import { getWeaponById } from '../../core/weapons'
 import { getBlessingById } from '../../core/blessings'
-import Card from '@/app/common/components/card'
+import Card from '@/app/common/components/ui/card'
 
 interface TableItem {
   label: string

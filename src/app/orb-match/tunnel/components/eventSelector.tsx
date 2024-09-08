@@ -2,7 +2,7 @@ import { useMemo, useState } from "react"
 import { Event, legendEvents, normalEvents, rareEvents } from "@/app/orb-match/core/events"
 import { getRandomInt } from "@/app/common/utils/math"
 import { LEGEND_EVENT_RATE, RARE_EVENT_RATE } from "../constants/rate"
-import Card from "@/app/common/components/card"
+import Card from "@/app/common/components/ui/card"
 
 const EventSelector: React.FC<{
   stage: number,
