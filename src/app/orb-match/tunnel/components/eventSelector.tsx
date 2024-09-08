@@ -54,13 +54,25 @@ const EventSelector: React.FC<{
       {events.map((event) => (
         <div
           onClick={() => setSelectedEvent(event)}
-          className={'p-5 w-52 h-72 bg-slate-300 rounded-xl cursor-pointer ' + (
+          className={'flex flex-col p-5 w-52 h-72 bg-slate-300 rounded-xl cursor-pointer ' + (
             selectedEvent === event ? 'shadow-2xl shadow-blue-500' : ''
           )}
           key={event.id}
         >
           <h2 className='font-bold text-lg'>{event.name}</h2>
-          <p className='my-2'>{event.description}</p>
+          <p className='my-1'>{event.description}</p>
+          {
+            event.dependences.length ? <ul className="p-2 h-32 mt-auto rounded bg-slate-400 overflow-y-auto scroll-bar">
+              {event.dependences.map((dep, index) => (
+                <li key={dep.name} className={'border-slate-300 ' + (
+                  index ? 'border-b' : ''
+                )}>
+                  <h3 className="text-sm font-bold">{dep.name}</h3>
+                  <p className="text-xs">{dep.description}</p>
+                </li>
+              ))}
+            </ul> : null
+          }
         </div>
       ))}
     </div>

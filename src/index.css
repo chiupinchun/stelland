@@ -13,3 +13,18 @@ body {
 .meteor {
   @apply py-1 ps-3 pe-6 lg:py-2 lg:ps-4 lg:pe-8 bg-gradient-to-r from-blue-500 to-transparent shadow-lg shadow-blue-500/50 transform -skew-x-12 text-blue-100 parallelogram;
 }
+
+.scroll-bar {
+  overflow: auto;
+}
+
+.scroll-bar::-webkit-scrollbar {
+  width: 5px;
+  height: 8px;
+  background-color: #aaa;
+}
+
+.scroll-bar::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.25);
+}

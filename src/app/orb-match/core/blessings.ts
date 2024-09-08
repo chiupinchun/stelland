@@ -96,7 +96,7 @@ export class CriticalMaster extends Blessing {
 
 export class HealthMaster extends Blessing {
   id = 10
-  name = '生命專精'
+  name = '生命強化'
   description = '提升5點最大生命'
   effect = (challenger: Challenger) => {
     challenger.maxHp += 5
