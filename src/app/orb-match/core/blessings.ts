@@ -58,7 +58,7 @@ export class PhysicMaster extends Blessing {
 export class GroundMaster extends Blessing {
   id = 6
   name = '大地專精'
-  description: string = '提升大地屬性傷害5%及大地屬性抗性5%。'
+  description: string = '提升地屬性傷害5%及地屬性抗性5%。'
   effect = (challenger: Challenger) => {
     challenger.groundDmg += 5
     challenger.groundResistance += 5

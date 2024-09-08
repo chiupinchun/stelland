@@ -55,7 +55,7 @@ export class Microphone extends Weapon {
 export class RockArmor extends Weapon {
   id = 5
   name = '堅岩之甲'
-  description: string = '提升10點基礎防禦力，提升10%大地屬性傷害'
+  description: string = '提升10點基礎防禦力，提升10%地屬性傷害'
   effect = (challenger: Challenger) => {
     challenger.groundDmg += 10
   }

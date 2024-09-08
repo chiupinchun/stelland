@@ -3,89 +3,94 @@ import Scene from '@/app/common/components/r3f/scene';
 import Tunnel from './components/tunnel';
 import Camera from './components/camera';
 import { Link } from 'react-router-dom';
-import { getUserInfo, updateUserInfo } from '@/api/module/orb-match';
+import { getUserInfo, updateUserInfo, UserInfoResponse } from '@/api/module/orb-match';
 import EventSelector from './components/eventSelector';
 import { useFetch } from '@/api/core/useFetch';
 import { Event } from '../core/events';
-import { getWeaponById } from '../core/weapons';
+import ChallengerInfo from './components/challengerInfo';
 
 const WALK_DURATION = 2000
 const STAGE_COUNT = 10
 
 const TunnelCore: React.FC<{
   isWalking: boolean
+  user: UserInfoResponse
+  onRefreshUser: () => void
   onWalking: (isWalking: boolean) => void
-}> = ({ isWalking, onWalking }) => {
-  const [isStarted, setIsStarted] = useState(false)
-  const { data: user, refresh: refreshUser } = useFetch(getUserInfo, [])
+  onClickChallengerInfo: () => void
+}> = ({
+  isWalking, user, onRefreshUser, onWalking, onClickChallengerInfo
+}) => {
+    const [isStarted, setIsStarted] = useState(false)
 
-  if (!user) {
-    return null
-  }
+    if (!user) {
+      return null
+    }
 
-  const walk = () => {
-    onWalking(true)
-    setTimeout(() => {
-      onWalking(false)
-    }, WALK_DURATION)
-  }
+    const walk = () => {
+      onWalking(true)
+      setTimeout(() => {
+        onWalking(false)
+      }, WALK_DURATION)
+    }
 
-  const start = () => {
-    setIsStarted(true)
-    walk()
-  }
+    const start = () => {
+      setIsStarted(true)
+      walk()
+    }
 
-  const nextStage = () => {
-    user.stage++
-    updateUserInfo(user)
-    refreshUser()
-    walk()
-  }
+    const nextStage = () => {
+      user.stage++
+      updateUserInfo(user)
+      onRefreshUser()
+      walk()
+    }
 
-  const handleSelectEvent = (event: Event) => {
-    event.effect(user)
-    updateUserInfo(user)
-    refreshUser()
-    nextStage()
-  }
+    const handleSelectEvent = (event: Event) => {
+      event.effect(user)
+      updateUserInfo(user)
+      onRefreshUser()
+      nextStage()
+    }
 
-  return (
-    <div className={
-      'fixed top-0 w-screen h-screen flex flex-col justify-center items-center ' + (
-        !isWalking && (!isStarted || user.stage % STAGE_COUNT === 0) ? 'bg-slate-900 bg-opacity-75' : ''
-      )
-    }>
-      {isStarted
-        ? (<>
-          <div className='w-fit'>
-            {user.stage % STAGE_COUNT !== 0 && !isWalking
-              ? <>
-                <div className='flex justify-between mb-10 w-full text-blue-200'>
-                  <div>
-                    {user.weapon && <p>武器：{getWeaponById(user.weapon).name}</p>}
-                    <p>已獲得祝福（{user.blessings.length}）</p>
-                    <p>已獲得道具（{user.items.length}）</p>
+    return (
+      <div className={
+        'fixed top-0 w-screen h-screen flex flex-col justify-center items-center ' + (
+          !isWalking && (!isStarted || user.stage % STAGE_COUNT === 0) ? 'bg-slate-900 bg-opacity-75' : ''
+        )
+      }>
+        {isStarted
+          ? (<>
+            <div className='w-fit'>
+              {user.stage % STAGE_COUNT !== 0 && !isWalking
+                ? <>
+                  <div className='flex justify-between mb-10 w-full text-blue-200'>
+                    <div>
+                      <a onClick={onClickChallengerInfo} className='cursor-pointer font-bold hover:underline'>角色資訊</a>
+                    </div>
+                    <div>
+                      當前層數：第{user.stage}層
+                    </div>
                   </div>
-                  <div>
-                    <p>當前層數：第{user.stage}層</p>
-                  </div>
-                </div>
-                <EventSelector onSelect={handleSelectEvent} stage={user.stage} />
-              </>
-              : null}
-            {user.stage % STAGE_COUNT === 0 && !isWalking ? <Link to='/orb-match/battle' className='px-5 py-2 rounded-xl bg-slate-300 hover:bg-slate-100'>
-              謁見星靈
-            </Link> : null}
-          </div>
-        </>)
-        : <button onClick={start} className='px-5 py-2 rounded-xl bg-slate-300 hover:bg-slate-100'>開始試煉</button>
-      }
-    </div>
-  );
-};
+                  <EventSelector onSelect={handleSelectEvent} stage={user.stage} />
+                </>
+                : null}
+              {user.stage % STAGE_COUNT === 0 && !isWalking ? <Link to='/orb-match/battle' className='px-5 py-2 rounded-xl bg-slate-300 hover:bg-slate-100'>
+                謁見星靈
+              </Link> : null}
+            </div>
+          </>)
+          : <button onClick={start} className='px-5 py-2 rounded-xl bg-slate-300 hover:bg-slate-100'>開始試煉</button>
+        }
+      </div>
+    );
+  };
 
 const TunnelLayout: React.FC = () => {
+  const { data: user, refresh: refreshUser } = useFetch(getUserInfo, [])
+
   const [isWalking, setIsWalking] = useState(false)
+  const [isChallengerInfoShow, setIsChallengerInfoShow] = useState(false)
 
   return (<>
     <div className="h-screen">
@@ -106,7 +111,18 @@ const TunnelLayout: React.FC = () => {
         <Tunnel />
       </Scene>
 
-      <TunnelCore isWalking={isWalking} onWalking={setIsWalking} />
+      {user && <TunnelCore
+        isWalking={isWalking}
+        user={user}
+        onRefreshUser={refreshUser}
+        onWalking={setIsWalking}
+        onClickChallengerInfo={() => setIsChallengerInfoShow(true)}
+      />}
+
+      {user && isChallengerInfoShow && <ChallengerInfo
+        user={user}
+        onClose={() => setIsChallengerInfoShow(false)}
+      />}
     </div>
   </>)
 }

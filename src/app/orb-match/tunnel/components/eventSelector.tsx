@@ -2,6 +2,7 @@ import { useMemo, useState } from "react"
 import { Event, legendEvents, normalEvents, rareEvents } from "@/app/orb-match/core/events"
 import { getRandomInt } from "@/app/common/utils/math"
 import { LEGEND_EVENT_RATE, RARE_EVENT_RATE } from "../constants/rate"
+import Card from "@/app/common/components/card"
 
 const EventSelector: React.FC<{
   stage: number,
@@ -52,11 +53,12 @@ const EventSelector: React.FC<{
   return (<>
     <div className='flex gap-40'>
       {events.map((event) => (
-        <div
+        <Card
           onClick={() => setSelectedEvent(event)}
-          className={'flex flex-col p-5 w-52 h-72 bg-slate-300 rounded-xl cursor-pointer ' + (
-            selectedEvent === event ? 'shadow-2xl shadow-blue-500' : ''
-          )}
+          className={
+            'w-52 h-72 cursor-pointer ' + (
+              selectedEvent === event ? 'shadow-2xl shadow-blue-500' : ''
+            )}
           key={event.id}
         >
           <h2 className='font-bold text-lg'>{event.name}</h2>
@@ -73,7 +75,7 @@ const EventSelector: React.FC<{
               ))}
             </ul> : null
           }
-        </div>
+        </Card>
       ))}
     </div>
     <div className="flex justify-center mt-16 w-full">
