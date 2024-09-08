@@ -8,6 +8,7 @@ import EventSelector from './components/eventSelector';
 import { useFetch } from '@/api/core/useFetch';
 import { Event } from '../core/events';
 import ChallengerInfo from './components/challengerInfo';
+import Modal from '@/app/common/components/ui/modal';
 
 const WALK_DURATION = 2000
 const STAGE_COUNT = 10
@@ -119,10 +120,15 @@ const TunnelLayout: React.FC = () => {
         onClickChallengerInfo={() => setIsChallengerInfoShow(true)}
       />}
 
-      {user && isChallengerInfoShow && <ChallengerInfo
-        user={user}
+      {user && <Modal
+        show={isChallengerInfoShow}
         onClose={() => setIsChallengerInfoShow(false)}
-      />}
+      >
+        <ChallengerInfo
+          user={user}
+          onClose={() => setIsChallengerInfoShow(false)}
+        />
+      </Modal>}
     </div>
   </>)
 }

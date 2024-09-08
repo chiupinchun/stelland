@@ -111,65 +111,63 @@ const ChallengerInfo: FC<Props> = ({ user, onClose }) => {
 
   return (
     <>
-      <div onClick={onClose} className='fixed top-0 flex justify-center items-center w-screen h-screen bg-slate-900 bg-opacity-25'>
-        <Card onClick={e => e.stopPropagation()} className='bg-slate-300 rounded'>
-          <div className='flex justify-end'>
-            <X onClick={onClose} className='cursor-pointer' />
-          </div>
-          <div className='w-64 lg:w-96 h-[75vh] overflow-y-auto scroll-bar'>
-            <h2 className='mb-1 border-b border-slate-400 font-bold'>基本資訊</h2>
-            <ul>
-              {baseInfo.map((item, index) => (
-                <li key={index} className='flex justify-between'>
-                  <div>{item.label}</div>
-                  <div>{item.cell}</div>
-                </li>
-              ))}
-            </ul>
+      <Card onClick={e => e.stopPropagation()} className='bg-slate-300 rounded'>
+        <div className='flex justify-end'>
+          <X onClick={onClose} className='cursor-pointer' />
+        </div>
+        <div className='w-64 lg:w-96 h-[75vh] overflow-y-auto scroll-bar'>
+          <h2 className='mb-1 border-b border-slate-400 font-bold'>基本資訊</h2>
+          <ul>
+            {baseInfo.map((item, index) => (
+              <li key={index} className='flex justify-between'>
+                <div>{item.label}</div>
+                <div>{item.cell}</div>
+              </li>
+            ))}
+          </ul>
 
-            <h2 className='mt-5 mb-1 border-b border-slate-400 font-bold'>暴擊相關</h2>
-            <ul>
-              {criticalInfo.map((item, index) => (
-                <li key={index} className='flex justify-between'>
-                  <div>{item.label}</div>
-                  <div>{item.cell}</div>
-                </li>
-              ))}
-            </ul>
+          <h2 className='mt-5 mb-1 border-b border-slate-400 font-bold'>暴擊相關</h2>
+          <ul>
+            {criticalInfo.map((item, index) => (
+              <li key={index} className='flex justify-between'>
+                <div>{item.label}</div>
+                <div>{item.cell}</div>
+              </li>
+            ))}
+          </ul>
 
-            <h2 className='mt-5 mb-1 border-b border-slate-400 font-bold'>屬性傷害</h2>
-            <ul>
-              {elementDmgInfo.map((item, index) => (
-                <li key={index} className='flex justify-between'>
-                  <div>{item.label}</div>
-                  <div>{item.cell}</div>
-                </li>
-              ))}
-            </ul>
+          <h2 className='mt-5 mb-1 border-b border-slate-400 font-bold'>屬性傷害</h2>
+          <ul>
+            {elementDmgInfo.map((item, index) => (
+              <li key={index} className='flex justify-between'>
+                <div>{item.label}</div>
+                <div>{item.cell}</div>
+              </li>
+            ))}
+          </ul>
 
-            <h2 className='mt-5 mb-1 border-b border-slate-400 font-bold'>屬性抗性</h2>
-            <ul>
-              {registanceInfo.map((item, index) => (
-                <li key={index} className='flex justify-between'>
-                  <div>{item.label}</div>
-                  <div>{item.cell}</div>
-                </li>
-              ))}
-            </ul>
+          <h2 className='mt-5 mb-1 border-b border-slate-400 font-bold'>屬性抗性</h2>
+          <ul>
+            {registanceInfo.map((item, index) => (
+              <li key={index} className='flex justify-between'>
+                <div>{item.label}</div>
+                <div>{item.cell}</div>
+              </li>
+            ))}
+          </ul>
 
-            <h2 className='mt-5 mb-1 border-b border-slate-400 font-bold'>其他資訊</h2>
-            <ul>
-              {otherInfo.map((item, index) => (
-                <li key={index} className='flex justify-between'>
-                  <div>{item.label}</div>
-                  <div>{item.cell}</div>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <h2 className='mt-5 mb-1 border-b border-slate-400 font-bold'>其他資訊</h2>
+          <ul>
+            {otherInfo.map((item, index) => (
+              <li key={index} className='flex justify-between'>
+                <div>{item.label}</div>
+                <div>{item.cell}</div>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-        </Card>
-      </div>
+      </Card>
     </>
   )
 }
