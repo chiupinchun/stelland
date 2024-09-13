@@ -5,7 +5,6 @@ import { Challenger } from '@/app/orb-match/core/challenger'
 import { getWeaponById, Weapon } from '@/app/orb-match/core/weapons'
 import { getBlessingById } from '@/app/orb-match/core/blessings'
 import Card from '@/app/common/components/ui/card'
-import { label } from 'three/webgpu'
 
 interface TableItem {
   label: string
@@ -200,7 +199,7 @@ const ChallengerInfo: FC<Props> = ({ user, onClose }) => {
   const weapon = user.weapon ? getWeaponById(user.weapon) : null
   const challenger = new Challenger(
     weapon,
-    user.blessings.map(id => getBlessingById(id))
+    user.blessings.map(blessing => getBlessingById(blessing.id))
   )
 
   return (

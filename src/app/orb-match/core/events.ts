@@ -22,6 +22,19 @@ export const getRarety = (eventOrId: Event | number) => {
   return id % 3
 }
 
+const pushBouns = <T extends Item | Blessing>(
+  bonuses: UserInfoResponse['blessings' | 'items'],
+  bonus: T,
+) => {
+  const id = bonus.id
+  const target = bonuses.find(item => item.id === id)
+  if (target) {
+    target.count++
+  } else {
+    bonuses.push({ id, count: 1 })
+  }
+}
+
 export const normalEvents: Event[] = [
   {
     id: 1 * 3,
@@ -42,7 +55,7 @@ export const normalEvents: Event[] = [
     name: '糖醋魚排',
     description: '獲得道具：肉。',
     effect: (user) => {
-      user.items.push(new Meat().id)
+      pushBouns(user.items, new Meat())
     },
     story: [
       '糖與醋的交織下，創造出甜而不膩的美味；',
@@ -57,7 +70,7 @@ export const normalEvents: Event[] = [
     name: '家',
     description: '獲得道具：保護。',
     effect: (user) => {
-      user.items.push(new Protect().id)
+      pushBouns(user.items, new Protect())
     },
     story: [
       '或許祂們經常會因為一些小事爭吵，甚至落下狠話。',
@@ -72,7 +85,7 @@ export const normalEvents: Event[] = [
     name: '夜靈宮',
     description: '獲得祝福：防禦強化。',
     effect: (user) => {
-      user.blessings.push(new DefUp().id)
+      pushBouns(user.blessings, new DefUp())
     },
     story: [
       '那曾是超越人智的偉業，真正意義上的鬼斧神工。',
@@ -89,7 +102,7 @@ export const normalEvents: Event[] = [
     name: '真誠的假情報',
     description: '獲得祝福：攻擊強化。',
     effect: (user) => {
-      user.blessings.push(new AtkUp().id)
+      pushBouns(user.blessings, new AtkUp())
     },
     story: [
       '情報，尤其是真心誠意的情報，',
@@ -121,7 +134,7 @@ export const normalEvents: Event[] = [
     name: '演唱會',
     description: '獲得祝福：治癒專精。',
     effect: (user) => {
-      user.blessings.push(new HealMaster().id)
+      pushBouns(user.blessings, new HealMaster())
     },
     story: [
       '環之星靈提供設備、牙之星靈打鼓、無形之星靈玩吉他、鰭之星靈彈電子琴。',
@@ -137,7 +150,7 @@ export const normalEvents: Event[] = [
     name: '生命之泉',
     description: '獲得祝福：生命強化。',
     effect: (user) => {
-      user.blessings.push(new HealthMaster().id)
+      pushBouns(user.blessings, new HealthMaster())
     },
     story: [
       '古代遺跡中發現的泉水，其中能感受到生生不息的能量，就好像泉水是活著的一樣。',
@@ -156,7 +169,7 @@ export const rareEvents: Event[] = [
     name: '研究報告',
     description: '獲得祝福：毒專精。',
     effect: (user) => {
-      user.blessings.push(new PoisonMaster().id)
+      pushBouns(user.blessings, new PoisonMaster())
     },
     story: [
       '環之星靈畢生所做的研究。',
@@ -187,7 +200,7 @@ export const rareEvents: Event[] = [
     name: '熱情如火',
     description: '獲得祝福：火專精',
     effect: (user) => {
-      user.blessings.push(new FireMaster().id)
+      pushBouns(user.blessings, new FireMaster())
     },
     story: [
       '天真、爛漫、享受當下，這些都是牙之星靈的代稱。',
@@ -202,7 +215,7 @@ export const rareEvents: Event[] = [
     name: '鐵山靠',
     description: '獲得祝福：物理專精。',
     effect: (user) => {
-      user.blessings.push(new PhysicMaster().id)
+      pushBouns(user.blessings, new PhysicMaster())
     },
     story: [
       '→←↓→←↑→←↓→',
@@ -219,7 +232,7 @@ export const rareEvents: Event[] = [
     name: '一驚一乍',
     description: '獲得祝福：大地專精。',
     effect: (user) => {
-      user.blessings.push(new GroundMaster().id)
+      pushBouns(user.blessings, new GroundMaster())
     },
     story: [
       '有人認為祂穩如老狗，天塌下來都不為所動；',
@@ -234,7 +247,7 @@ export const rareEvents: Event[] = [
     name: '柔和、澄澈、源源不絕',
     description: '獲得祝福：水專精。',
     effect: (user) => {
-      user.blessings.push(new WaterMaster().id)
+      pushBouns(user.blessings, new WaterMaster())
     },
     story: [
       '每逢星靈之間發生爭執，祂總是巧妙地安撫雙方情緒，傾聽問題的癥結，並提出解決的方案。',
@@ -312,7 +325,7 @@ export const rareEvents: Event[] = [
     name: '氣運之子',
     description: '獲得祝福：暴擊強化。',
     effect: (user) => {
-      user.blessings.push(new CriticalMaster().id)
+      pushBouns(user.blessings, new CriticalMaster())
     },
     story: [
       '猜拳，是一個理論上1/3機率贏，1/3機率平手，1/3機率輸的遊戲。',

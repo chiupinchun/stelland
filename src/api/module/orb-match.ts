@@ -2,8 +2,8 @@ import { request } from "../core/request"
 
 export interface UserInfoResponse {
   weapon: number | null
-  blessings: number[]
-  items: number[]
+  blessings: { id: number, count: number }[]
+  items: { id: number, count: number }[]
 
   stage: number
 }
