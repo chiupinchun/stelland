@@ -12,7 +12,7 @@ const Card: FC<Props> = ({ className, children, onClick }) => {
       <div
         onClick={onClick}
         className={
-          'flex flex-col p-5 bg-slate-300 rounded-xl '
+          'flex flex-col p-5 bg-slate-300 border rounded-xl '
           + (className ?? '')
         }
       >

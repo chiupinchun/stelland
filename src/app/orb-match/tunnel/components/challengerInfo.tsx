@@ -3,7 +3,8 @@ import { X } from 'lucide-react'
 import { FC, useRef, useState } from 'react'
 import { Challenger } from '@/app/orb-match/core/challenger'
 import { getWeaponById, Weapon } from '@/app/orb-match/core/weapons'
-import { getBlessingById } from '@/app/orb-match/core/blessings'
+import { Blessing, getBlessingById } from '@/app/orb-match/core/blessings'
+import { getItemById, Item } from '@/app/orb-match/core/items'
 import Card from '@/app/common/components/ui/card'
 
 interface TableItem {
@@ -177,6 +178,32 @@ const BaseInfo: FC<{
   )
 }
 
+const BonusItem: FC<{ bonus: Item | Blessing }> = ({ bonus }) => {
+  return (
+    <Card className='p-2'>
+      <h3 className='mb-2 font-bold'>{bonus.name}</h3>
+      <p className='text-sm'>{bonus.description}</p>
+    </Card>
+  )
+}
+
+const UserBonus: FC<{
+  bonuses: UserInfoResponse['blessings' | 'items']
+  initialization: typeof getItemById | typeof getBlessingById
+}> = ({ bonuses, initialization }) => {
+  return (
+    <>
+      <ul className='grid grid-cols-3 gap-2'>
+        {bonuses.map(bonus => (
+          <li key={bonus.id}>
+            <BonusItem bonus={initialization(bonus.id)} />
+          </li>
+        ))}
+      </ul>
+    </>
+  )
+}
+
 interface Props {
   user: UserInfoResponse
   onClose: () => void
@@ -224,8 +251,14 @@ const ChallengerInfo: FC<Props> = ({ user, onClose }) => {
           <X onClick={onClose} className='cursor-pointer' />
         </div>
 
-        <div className='w-64 lg:w-96 h-[75vh] overflow-y-auto scroll-bar'>
-          {currentTab === tabs.current[0] ? <BaseInfo challenger={challenger} weapon={weapon} /> : null}
+        <div className='pt-5 w-64 lg:w-96 h-[75vh] overflow-y-auto scroll-bar'>
+          {
+            currentTab === tabs.current[0]
+              ? <BaseInfo challenger={challenger} weapon={weapon} />
+              : currentTab === tabs.current[1]
+                ? <UserBonus bonuses={user.items} initialization={getItemById} />
+                : <UserBonus bonuses={user.blessings} initialization={getBlessingById} />
+          }
         </div>
       </Card>
     </>
