@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import { twMerge } from 'tailwind-merge'
 
 interface Props {
   className?: string
@@ -11,10 +12,10 @@ const Card: FC<Props> = ({ className, children, onClick }) => {
     <>
       <div
         onClick={onClick}
-        className={
-          'flex flex-col p-5 bg-slate-300 border rounded-xl '
-          + (className ?? '')
-        }
+        className={twMerge(
+          'flex flex-col p-5 bg-slate-300 border rounded-xl',
+          (className ?? '')
+        )}
       >
         {children}
       </div >

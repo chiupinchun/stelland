@@ -180,7 +180,7 @@ const BaseInfo: FC<{
 
 const BonusItem: FC<{ bonus: Item | Blessing }> = ({ bonus }) => {
   return (
-    <Card className='p-2'>
+    <Card className='p-3'>
       <h3 className='mb-2 font-bold'>{bonus.name}</h3>
       <p className='text-sm'>{bonus.description}</p>
     </Card>
@@ -193,7 +193,7 @@ const UserBonus: FC<{
 }> = ({ bonuses, initialization }) => {
   return (
     <>
-      <ul className='grid grid-cols-3 gap-2'>
+      <ul className='grid grid-cols-2 lg:grid-cols-3 gap-2'>
         {bonuses.map(bonus => (
           <li key={bonus.id}>
             <BonusItem bonus={initialization(bonus.id)} />
