@@ -107,7 +107,7 @@ export class HealthMaster extends Blessing {
 export const blessings = [
   AtkUp, DefUp, PoisonMaster, FireMaster, PhysicMaster, GroundMaster, WaterMaster,
   HealMaster, CriticalMaster, HealthMaster
-]
+] as const
 
 export const getBlessingById = (id: number) => {
   return new [blessings[0], ...blessings][id]()

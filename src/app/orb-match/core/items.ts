@@ -23,7 +23,7 @@ export class Protect extends Item {
   }
 }
 
-export const items = [Meat, Protect]
+export const items = [Meat, Protect] as const
 
 export const getItemById = (id: number) => {
   return new [items[0], ...items][id]()
