@@ -199,7 +199,7 @@ const ChallengerInfo: FC<Props> = ({ user, onClose }) => {
   const weapon = user.weapon ? getWeaponById(user.weapon) : null
   const challenger = new Challenger(
     weapon,
-    user.blessings.map(blessing => getBlessingById(blessing.id))
+    user.blessings
   )
 
   return (

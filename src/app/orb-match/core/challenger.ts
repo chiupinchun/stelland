@@ -1,4 +1,5 @@
-import { Blessing } from "./blessings"
+import { UserInfoResponse } from "@/api/module/orb-match"
+import { getBlessingById } from "./blessings"
 import { Weapon } from "./weapons"
 
 export class Challenger {
@@ -25,9 +26,14 @@ export class Challenger {
 
   constructor(
     weapon: Weapon | null,
-    blessings: Blessing[]
+    blessings: UserInfoResponse['blessings']
   ) {
-    blessings.forEach(blessing => blessing.effect(this))
+    blessings.forEach(({ id, count }) => {
+      const blessing = getBlessingById(id)
+      for (let i = 0; i < count; i++) {
+        blessing.effect(this)
+      }
+    })
     if (weapon) {
       this.atk += weapon.baseAtk
       this.def += weapon.baseDef
