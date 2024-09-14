@@ -9,9 +9,9 @@ import { useFetch } from '@/api/core/useFetch';
 import { Event } from '../core/events';
 import ChallengerInfo from './components/challengerInfo';
 import Modal from '@/app/common/components/ui/modal';
+import { STAGE_COUNT } from './constants/stage';
 
 const WALK_DURATION = 2000
-const STAGE_COUNT = 10
 
 const TunnelCore: React.FC<{
   isWalking: boolean

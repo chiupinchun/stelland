@@ -2,12 +2,12 @@ import { UserInfoResponse } from "@/api/module/orb-match"
 import { getBlessingById } from "./blessings"
 import { Weapon } from "./weapons"
 
-export class Challenger {
-  maxHp = 50
-  hp = 50
+export abstract class Character {
+  abstract maxHp: number
+  abstract hp: number
   sheild = 0
-  atk = 10
-  def = 10
+  abstract atk: number
+  abstract def: number
   increaseDmg = 0
   critical = 0
   criticalDmg = 0
@@ -23,11 +23,19 @@ export class Challenger {
   physicResistance = 0
   maxResistance = 50
   healRate = 0
+}
+
+export class Challenger extends Character {
+  maxHp = 50
+  hp = 50
+  atk = 10
+  def = 10
 
   constructor(
     weapon: Weapon | null,
     blessings: UserInfoResponse['blessings']
   ) {
+    super()
     blessings.forEach(({ id, count }) => {
       const blessing = getBlessingById(id)
       for (let i = 0; i < count; i++) {

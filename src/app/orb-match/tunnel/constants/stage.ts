@@ -1,0 +1,1 @@
+export const STAGE_COUNT = 10
