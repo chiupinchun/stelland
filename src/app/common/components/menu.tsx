@@ -20,21 +20,13 @@ const menu: MenuGroup[] = [
   },
   {
     title: '服務',
-    children: []
-  },
-  {
-    title: '小遊戲',
     children: [
       {
-        title: '星靈試煉',
+        title: '星靈測驗',
         href: '/orb-match/tunnel'
-      },
-      {
-        title: '追憶拼圖',
-        href: '/puzzle'
       }
     ]
-  },
+  }
 ]
 
 interface Props { }
