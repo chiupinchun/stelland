@@ -5,8 +5,9 @@ import Camera from './components/camera';
 import Selector from './components/selector';
 import { questions } from './configs/questions';
 import { Sprite, sprites } from '@/app/common/configs/sprites';
+import { useNavigate } from 'react-router-dom';
 
-const WALK_DURATION = 2000
+const WALK_DURATION = 1000
 
 const TunnelCore: React.FC<{
   isWalking: boolean
@@ -14,6 +15,8 @@ const TunnelCore: React.FC<{
 }> = ({
   isWalking, onWalking
 }) => {
+    const navigate = useNavigate()
+
     const [isStarted, setIsStarted] = useState(false)
 
     const start = () => {
@@ -42,16 +45,18 @@ const TunnelCore: React.FC<{
     )
 
     const nextStage = (keys: Sprite['key'][]) => {
+      keys.forEach(key => {
+        score[key]++
+      })
       if (currentQuestionIndex < questions.length - 1) {
-        keys.forEach(key => {
-          score[key]++
-        })
         setScore(score)
 
         walk()
         setCurrentQuestionIndex(currentQuestionIndex + 1)
       } else {
-        // TODO: to result page
+        const [key] = Object.entries(score)
+          .reduce((highest, current) => highest[1] > current[1] ? highest : current)
+        navigate(`/psycho-test/result?sprite=${key}`)
       }
     }
 

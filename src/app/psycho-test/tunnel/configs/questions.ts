@@ -143,7 +143,7 @@ export const questions: Question[] = [
       new Option('經濟效益', ['snake']),
       new Option('開不開心', ['dog', 'cat', 'chikun']),
       new Option('道德倫理', ['fish']),
-      new Option('小朋友才選擇', ['prairie-dog'])
+      new Option('小朋友才選擇', ['prairie-dog', 'snake'])
     ]
   }
 ]
