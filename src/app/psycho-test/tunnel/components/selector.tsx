@@ -5,7 +5,7 @@ import { useState } from "react"
 
 const Selector: React.FC<{
   question: Question
-  onSelect: (event: Sprite['key'][]) => void
+  onSelect: (keys: Sprite['key'][]) => void
 }> = ({ question, onSelect }) => {
   const [selected, setSelected] = useState<Question['options'][number] | null>(null)
 

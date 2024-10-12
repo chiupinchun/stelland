@@ -4,7 +4,7 @@ import Tunnel from './components/tunnel';
 import Camera from './components/camera';
 import Selector from './components/selector';
 import { questions } from './configs/questions';
-import { Sprite } from '@/app/common/configs/sprites';
+import { Sprite, sprites } from '@/app/common/configs/sprites';
 
 const WALK_DURATION = 2000
 
@@ -34,9 +34,25 @@ const TunnelCore: React.FC<{
       [currentQuestionIndex]
     )
 
-    const nextStage = (sprites: Sprite['key'][]) => {
-      walk()
-      setCurrentQuestionIndex(currentQuestionIndex + 1)
+    const [score, setScore] = useState<Record<Sprite['key'], number>>(
+      sprites.reduce(
+        (result, sprite) => ({ ...result, [sprite.key]: 0 }),
+        {} as Record<string, number>
+      )
+    )
+
+    const nextStage = (keys: Sprite['key'][]) => {
+      if (currentQuestionIndex < questions.length - 1) {
+        keys.forEach(key => {
+          score[key]++
+        })
+        setScore(score)
+
+        walk()
+        setCurrentQuestionIndex(currentQuestionIndex + 1)
+      } else {
+        // TODO: to result page
+      }
     }
 
     return (
