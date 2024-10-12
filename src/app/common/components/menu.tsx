@@ -23,7 +23,7 @@ const menu: MenuGroup[] = [
     children: [
       {
         title: '星靈測驗',
-        href: '/orb-match/tunnel'
+        href: '/psycho-test/tunnel'
       }
     ]
   }

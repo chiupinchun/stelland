@@ -1,7 +1,7 @@
 import { createHashRouter } from "react-router-dom";
 import App from "./App";
 import HomePage from "@/app/home/page";
-import TunnelPage from "./app/orb-match/tunnel/page";
+import TunnelPage from "./app/psycho-test/tunnel/page";
 
 export const router = createHashRouter([
   {
@@ -13,7 +13,7 @@ export const router = createHashRouter([
         Component: HomePage
       },
       {
-        path: 'orb-match',
+        path: 'psycho-test',
         children: [
           {
             path: 'tunnel',

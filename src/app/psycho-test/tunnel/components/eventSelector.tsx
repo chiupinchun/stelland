@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react"
-import { Event } from "@/app/orb-match/core/events"
+import { Event } from "@/app/psycho-test/core/events"
 import Card from "@/app/common/components/ui/card"
 
 const EventSelector: React.FC<{
