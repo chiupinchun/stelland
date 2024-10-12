@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import Scene from '@/app/common/components/r3f/scene';
 import Tunnel from './components/tunnel';
 import Camera from './components/camera';
-import EventSelector from './components/eventSelector';
+import Selector from './components/selector';
+import { questions } from './configs/questions';
+import { Sprite } from '@/app/common/configs/sprites';
 
 const WALK_DURATION = 2000
 
@@ -26,12 +28,15 @@ const TunnelCore: React.FC<{
       }, WALK_DURATION)
     }
 
-    const nextStage = () => {
-      walk()
-    }
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
+    const currentQuestion = useMemo(
+      () => questions[currentQuestionIndex],
+      [currentQuestionIndex]
+    )
 
-    const handleSelectEvent = () => {
-      nextStage()
+    const nextStage = (sprites: Sprite['key'][]) => {
+      walk()
+      setCurrentQuestionIndex(currentQuestionIndex + 1)
     }
 
     return (
@@ -47,15 +52,7 @@ const TunnelCore: React.FC<{
           >開始測驗</button>}
           {isStarted && !isWalking
             ? <>
-              <div className='flex justify-between mb-10 w-full text-blue-200'>
-                <div>
-                  <a className='cursor-pointer font-bold hover:underline'>角色資訊</a>
-                </div>
-                <div>
-                  當前層數：第 層
-                </div>
-              </div>
-              <EventSelector onSelect={handleSelectEvent} stage={1} />
+              <Selector onSelect={nextStage} question={currentQuestion} />
             </>
             : null}
         </div>
