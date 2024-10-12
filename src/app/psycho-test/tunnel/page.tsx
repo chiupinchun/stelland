@@ -14,6 +14,11 @@ const TunnelCore: React.FC<{
 }) => {
     const [isStarted, setIsStarted] = useState(false)
 
+    const start = () => {
+      setIsStarted(true)
+      walk()
+    }
+
     const walk = () => {
       onWalking(true)
       setTimeout(() => {
@@ -36,7 +41,11 @@ const TunnelCore: React.FC<{
         )
       }>
         <div className='w-fit'>
-          {!isWalking
+          {isStarted || <button
+            onClick={start}
+            className='px-5 py-2 rounded-xl bg-slate-300 hover:bg-slate-100'
+          >開始測驗</button>}
+          {isStarted && !isWalking
             ? <>
               <div className='flex justify-between mb-10 w-full text-blue-200'>
                 <div>
