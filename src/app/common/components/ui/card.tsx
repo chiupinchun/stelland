@@ -13,7 +13,7 @@ const Card: FC<Props> = ({ className, children, onClick }) => {
       <div
         onClick={onClick}
         className={twMerge(
-          'flex flex-col p-5 bg-slate-300 border rounded-xl',
+          'p-5 bg-slate-300 border rounded-xl',
           (className ?? '')
         )}
       >

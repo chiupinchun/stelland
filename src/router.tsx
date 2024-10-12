@@ -21,7 +21,7 @@ export const router = createHashRouter([
             element: <TunnelPage />
           },
           {
-            path: 'result',
+            path: 'result/:key',
             element: <Result />
           }
         ]
