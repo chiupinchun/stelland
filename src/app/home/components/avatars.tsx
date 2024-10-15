@@ -9,11 +9,11 @@ const Avatars: FC<Props> = ({ onSelect }) => {
 
   return (
     <>
-      <div className='flex flex-col justify-between lg:block p-2 lg:p-4 h-full lg:h-auto border rounded-full lg:space-y-4 bg-slate-700 bg-opacity-25'>
+      <div className='flex flex-col justify-between md:block p-2 md:p-4 h-full md:h-auto border rounded-full md:space-y-4 bg-slate-700 bg-opacity-25'>
         {sprites.map(sprite => (
           <img onClick={() => onSelect?.(sprite)}
             key={sprite.key} src={sprite.avatar} alt={`${sprite.name}頭像`}
-            width={50} height={50} className='lg:w-20 rounded-full cursor-pointer' />
+            width={50} height={50} className='md:w-20 rounded-full cursor-pointer' />
         ))}
       </div>
     </>

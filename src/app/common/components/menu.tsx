@@ -54,7 +54,7 @@ const Menu: FC<Props> = () => {
           'absolute flex justify-center w-max transition-all '
           + (isMenuOpen ? 'right-16 opacity-100' : '-right-[100vw] opacity-0')
         }>
-          <ul className='flex items-start gap-10 lg:gap-20'>
+          <ul className='flex items-start gap-10 md:gap-20'>
             {menu.map(group => (
               <li
                 onClick={(e) => {
