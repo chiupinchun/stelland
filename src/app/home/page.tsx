@@ -36,7 +36,7 @@ const HomePage: FC<Props> = () => {
           ))}
         </Scene>
 
-        <div className='absolute top-0 left-2 z-10 flex justify-center items-center py-2 h-full'>
+        <div className='absolute top-0 left-2 z-10 flex justify-center items-center py-2 md:h-full'>
           <Avatars onSelect={setSelectedSprite} />
         </div>
 
