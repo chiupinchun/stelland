@@ -6,6 +6,7 @@ import Selector from './components/selector';
 import { questions } from './configs/questions';
 import { Sprite, sprites } from '@/app/common/configs/sprites';
 import { useNavigate } from 'react-router-dom';
+import HpBar from '@/app/common/components/ui/hpBar';
 
 const WALK_DURATION = 1000
 
@@ -73,6 +74,12 @@ const TunnelCore: React.FC<{
           >開始測驗</button>}
           {isStarted && !isWalking
             ? <>
+              <HpBar
+                hp={currentQuestionIndex}
+                maxHp={questions.length}
+                className='mb-5 rounded-lg'
+                innerBarClassName='bg-blue-700'
+              />
               <Selector onSelect={nextStage} question={currentQuestion} />
             </>
             : null}
