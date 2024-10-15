@@ -94,7 +94,7 @@ const Menu: FC<Props> = () => {
 
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className='p-2 bg-slate-300 rounded-lg text-slate-700'
+          className='p-2 bg-slate-300 border border-slate-700 rounded-lg text-slate-700'
         >
           <AlignJustify />
         </button>
