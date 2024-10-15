@@ -43,7 +43,7 @@ const HomePage: FC<Props> = () => {
         <div className='absolute bottom-5 z-10 w-full flex justify-center items-center'>
           {selectedSprite && <Dialog
             avatar={selectedSprite.avatar} content={
-              `${selectedSprite.name}：\n${selectedSprite.lines}`
+              `${selectedSprite.name}：\n${selectedSprite.lines.home}`
             }
           />}
         </div>

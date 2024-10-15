@@ -12,8 +12,10 @@
   "dependencies": {
     "@react-three/fiber": "^8.17.5",
     "@types/three": "^0.167.2",
+    "chart.js": "^4.4.4",
     "lucide-react": "^0.435.0",
     "react": "^18.3.1",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.3.1",
     "react-router": "^6.26.1",
     "react-router-dom": "^6.26.1",
