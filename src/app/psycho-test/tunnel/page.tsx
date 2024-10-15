@@ -56,7 +56,7 @@ const TunnelCore: React.FC<{
       } else {
         const [key] = Object.entries(score)
           .reduce((highest, current) => highest[1] > current[1] ? highest : current)
-        navigate(`/psycho-test/result?sprite=${key}`)
+        navigate(`/psycho-test/result/${key}`)
       }
     }
 
