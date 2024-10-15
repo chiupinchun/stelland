@@ -6,6 +6,11 @@ import { FC, useMemo, useRef } from 'react'
 import { Radar } from 'react-chartjs-2'
 import { useSearchParams } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
+import { getRandomIndex, getRandomItemByDay } from './utils/random'
+import { adjectives } from './configs/adjectives'
+import { actions } from './configs/actions'
+import { colors } from './configs/colors'
+import { objects } from './configs/objects'
 
 const Subtitle: FC<{
   children: React.ReactNode
@@ -35,6 +40,20 @@ const DailyDivination: FC<Props> = () => {
     setSearchParams(searchParams)
   }
 
+  const adjective = useMemo(() => getRandomItemByDay(currentIndex, adjectives), [currentIndex])
+  const goodAction = useMemo(() => getRandomItemByDay(currentIndex, actions), [currentIndex])
+  const badAction = useMemo(() => getRandomItemByDay(currentIndex + 1, actions), [currentIndex])
+  const color = useMemo(() => getRandomItemByDay(currentIndex, colors), [currentIndex])
+  const number = useMemo(() => getRandomIndex(currentIndex, 100), [currentIndex])
+  const goodObject = useMemo(() => getRandomItemByDay(currentIndex, objects), [currentIndex])
+  const goodSprite = useMemo(() => getRandomItemByDay(currentIndex, sprites), [currentIndex])
+  const badSprite = useMemo(() => getRandomItemByDay(currentIndex + 1, sprites), [currentIndex])
+  const luck = useMemo(() => ({
+    health: getRandomIndex(currentIndex, 6),
+    love: getRandomIndex(currentIndex * 2, 6),
+    work: getRandomIndex(currentIndex * 3, 6),
+  }), [currentIndex])
+
   return (
     <>
       <div className='flex flex-col justify-center items-center py-4 min-h-screen'>
@@ -54,16 +73,14 @@ const DailyDivination: FC<Props> = () => {
                     和
                     <strong>{sprite.name}</strong>
                     締結契約的你，今天會有
-                    <span className='text-emerald-500 font-bold'>無與倫比</span>
-                    的
-                    <span className='text-cyan-600 font-bold'>抽卡運</span>
-                    。
+                    <span className='text-emerald-500 font-bold'>{adjective}</span>
+                    的運勢。
                   </p>
                   <p>
                     在星靈的庇護下，今天適合
-                    <span className='text-amber-500 font-bold'>拉屎</span>
+                    <span className='text-amber-500 font-bold'>{goodAction}</span>
                     ，但要注意
-                    <span className='text-indigo-500 font-bold'>吃屎</span>
+                    <span className='text-indigo-500 font-bold'>{badAction}</span>
                     可能會帶來厄運。
                   </p>
                 </article>
@@ -72,15 +89,15 @@ const DailyDivination: FC<Props> = () => {
                     <tbody>
                       <tr className='border-b'>
                         <td>幸運色</td>
-                        <td>黃</td>
+                        <td>{color}</td>
                       </tr>
                       <tr className='border-b'>
                         <td>幸運數字</td>
-                        <td>11</td>
+                        <td>{number}</td>
                       </tr>
                       <tr>
                         <td>幸運小物</td>
-                        <td>內褲</td>
+                        <td>{goodObject}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -92,11 +109,11 @@ const DailyDivination: FC<Props> = () => {
                   <tbody>
                     <tr className='border-b'>
                       <td>適合共事的星靈</td>
-                      <td>牙之星靈</td>
+                      <td>{goodSprite.name}</td>
                     </tr>
                     <tr>
                       <td>易起摩擦的星靈</td>
-                      <td>牙之星靈</td>
+                      <td>{badSprite.name}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -105,15 +122,15 @@ const DailyDivination: FC<Props> = () => {
                   <tbody>
                     <tr className='border-b'>
                       <td>健康</td>
-                      <td>5</td>
+                      <td>{luck.health}</td>
                     </tr>
                     <tr className='border-b'>
                       <td>感情</td>
-                      <td>5</td>
+                      <td>{luck.love}</td>
                     </tr>
                     <tr>
                       <td>事業</td>
-                      <td>5</td>
+                      <td>{luck.work}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -122,7 +139,7 @@ const DailyDivination: FC<Props> = () => {
                 <Radar data={{
                   labels: ['健康', '事業', '感情'],
                   datasets: [{
-                    data: [5, 5, 5]
+                    data: [luck.health, luck.work, luck.love]
                   }]
                 }} options={{
                   plugins: {
@@ -132,6 +149,7 @@ const DailyDivination: FC<Props> = () => {
                     r: {
                       ticks: { display: false },
                       beginAtZero: true,
+                      max: 5,
                       grid: { display: false }
                     }
                   }
