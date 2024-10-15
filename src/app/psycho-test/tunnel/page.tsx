@@ -26,10 +26,13 @@ const TunnelCore: React.FC<{
     }
 
     const walk = () => {
-      onWalking(true)
-      setTimeout(() => {
-        onWalking(false)
-      }, WALK_DURATION)
+      return new Promise(resolve => {
+        onWalking(true)
+        setTimeout(() => {
+          onWalking(false)
+          resolve(undefined)
+        }, WALK_DURATION)
+      })
     }
 
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
@@ -45,7 +48,7 @@ const TunnelCore: React.FC<{
       )
     )
 
-    const nextStage = (keys: Sprite['key'][]) => {
+    const nextStage = async (keys: Sprite['key'][]) => {
       keys.forEach(key => {
         score[key]++
       })
@@ -57,6 +60,7 @@ const TunnelCore: React.FC<{
       } else {
         const [key] = Object.entries(score)
           .reduce((highest, current) => highest[1] > current[1] ? highest : current)
+        await walk()
         navigate(`/psycho-test/result/${key}`)
       }
     }
