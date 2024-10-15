@@ -36,16 +36,16 @@ const HomePage: FC<Props> = () => {
           ))}
         </Scene>
 
-        <div className='absolute top-0 left-2 z-10 flex justify-center items-center py-2 md:h-full'>
-          <Avatars onSelect={setSelectedSprite} />
-        </div>
-
         <div className='absolute bottom-5 z-10 w-full flex justify-center items-center'>
           {selectedSprite && <Dialog
             avatar={selectedSprite.avatar} content={
               `${selectedSprite.name}：\n${selectedSprite.lines.home}`
             }
           />}
+        </div>
+
+        <div className='absolute top-0 left-2 z-10 flex justify-center items-center py-2 md:h-full'>
+          <Avatars onSelect={setSelectedSprite} />
         </div>
       </div>
     </>
