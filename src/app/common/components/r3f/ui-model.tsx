@@ -79,7 +79,7 @@ const UiModel: FC<Props> = ({
 
   return (
     <>
-      <primitive object={model.scene} position={rawPosition.current} />
+      <primitive object={model.scene} position={rawPosition.current} rotation={[0, 0, 0]} />
     </>
   )
 }
