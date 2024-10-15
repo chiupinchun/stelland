@@ -3,6 +3,7 @@ import App from "./App";
 import HomePage from "@/app/home/page";
 import TunnelPage from "./app/psycho-test/tunnel/page";
 import Result from "./app/psycho-test/result/page";
+import DailyDivination from "./app/divination/daily/page";
 
 export const router = createHashRouter([
   {
@@ -23,6 +24,15 @@ export const router = createHashRouter([
           {
             path: 'result/:key',
             element: <Result />
+          }
+        ]
+      },
+      {
+        path: 'divination',
+        children: [
+          {
+            path: 'daily',
+            element: <DailyDivination />
           }
         ]
       }

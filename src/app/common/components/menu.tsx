@@ -24,6 +24,10 @@ const menu: MenuGroup[] = [
       {
         title: '星靈測驗',
         href: '/psycho-test/tunnel'
+      },
+      {
+        title: '星靈占卜',
+        href: '/divination/daily'
       }
     ]
   }
