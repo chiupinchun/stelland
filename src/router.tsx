@@ -4,6 +4,7 @@ import HomePage from "@/app/home/page";
 import TunnelPage from "./app/psycho-test/tunnel/page";
 import Result from "./app/psycho-test/result/page";
 import DailyDivination from "./app/divination/daily/page";
+import RuneDivination from "./app/divination/rune/page";
 
 export const router = createHashRouter([
   {
@@ -33,6 +34,10 @@ export const router = createHashRouter([
           {
             path: 'daily',
             element: <DailyDivination />
+          },
+          {
+            path: 'rune',
+            element: <RuneDivination />
           }
         ]
       }

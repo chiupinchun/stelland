@@ -28,6 +28,10 @@ const menu: MenuGroup[] = [
       {
         title: '星靈占卜',
         href: '/divination/daily'
+      },
+      {
+        title: '符文占卜',
+        href: '/divination/rune'
       }
     ]
   }
