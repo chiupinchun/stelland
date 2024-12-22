@@ -7,15 +7,16 @@ import PrairieDogRune from '@/assets/images/runes/prairie-dog.svg'
 
 export const runes = [
   {
-    "key": "fish",
-    "icon": FishRune,
-    "meanings": [
+    key: "fish",
+    name: '鰭之符文',
+    icon: FishRune,
+    meanings: [
       "溫柔與感性的表現",
       "情感連結的力量",
       "平和心態帶來的安穩",
       "深刻的同理心"
     ],
-    "guides": [
+    guides: [
       "珍惜與他人的感情聯繫，維繫關係中的平衡",
       "用溫柔面對困難，化解衝突",
       "表達你的情感，讓別人感受到你的真誠",
@@ -23,15 +24,16 @@ export const runes = [
     ]
   },
   {
-    "key": "cat",
-    "icon": CatRune,
-    "meanings": [
+    key: "cat",
+    name: '無形之符文',
+    icon: CatRune,
+    meanings: [
       "自由的靈魂",
       "隨機應變的智慧",
       "探索未知的勇氣",
       "神秘與好奇心"
     ],
-    "guides": [
+    guides: [
       "不要害怕未知，放下控制去感受機遇",
       "學會享受慵懶的時刻，這能帶來靈感",
       "探索新事物，打破日常的框架",
@@ -39,15 +41,16 @@ export const runes = [
     ]
   },
   {
-    "key": "dog",
-    "icon": DogRune,
-    "meanings": [
+    key: "dog",
+    name: '牙之符文',
+    icon: DogRune,
+    meanings: [
       "純真的快樂",
       "對生命的熱情",
       "無條件的信任",
       "樂觀與正能量"
     ],
-    "guides": [
+    guides: [
       "擁抱生活中的小確幸，享受當下",
       "用樂觀面對挑戰，將能量傳遞給周圍的人",
       "建立真誠的友誼，這是最大的財富",
@@ -55,15 +58,16 @@ export const runes = [
     ]
   },
   {
-    "key": "snake",
-    "icon": SnakeRune,
-    "meanings": [
+    key: "snake",
+    name: '環之符文',
+    icon: SnakeRune,
+    meanings: [
       "卓越的智慧",
       "創新的能力",
       "系統化的思考",
       "對未知的求知慾"
     ],
-    "guides": [
+    guides: [
       "用理性分析問題，制定有效計劃",
       "嘗試新的事物或方法，勇於突破",
       "接受挑戰，用知識解決難題",
@@ -71,15 +75,16 @@ export const runes = [
     ]
   },
   {
-    "key": "chikun",
-    "icon": ChikunRune,
-    "meanings": [
+    key: "chikun",
+    name: '冠之符文',
+    icon: ChikunRune,
+    meanings: [
       "自信與創意的結合",
       "表現自我的勇氣",
       "獨特個性的展現",
       "娛樂與熱情的象徵"
     ],
-    "guides": [
+    guides: [
       "勇敢地成為群眾的焦點，讓你的特質閃耀",
       "用創意解決問題，展現你的才能",
       "擁抱娛樂精神，將快樂傳遞給他人",
@@ -87,15 +92,16 @@ export const runes = [
     ]
   },
   {
-    "key": "prairie-dog",
-    "icon": PrairieDogRune,
-    "meanings": [
+    key: "prairie-dog",
+    name: '爪之符文',
+    icon: PrairieDogRune,
+    meanings: [
       "謹慎與敏感",
       "內心的安穩",
       "觀察力與細節敏感度",
       "與自然和諧共處"
     ],
-    "guides": [
+    guides: [
       "留心周圍的變化，從細節中找到線索",
       "保持冷靜，為自己創造安全的環境",
       "培養內心的平靜，以應對壓力",

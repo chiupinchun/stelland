@@ -1,11 +1,32 @@
-import { FC, useState } from 'react'
+import { FC, useMemo, useState } from 'react'
 import { runes } from './configs/runes'
 import Rune from './components/rune'
+import Modal from '@/app/common/components/ui/modal'
+import Card from '@/app/common/components/ui/card'
+import { sprites } from '@/app/common/configs/sprites'
 
 interface Props { }
 
 const RuneDivination: FC<Props> = () => {
   const [selectedRune, setSelectedRune] = useState<typeof runes[number] | null>(null)
+
+  const [
+    isDescriptionModalOpen, setIsDescriptionModalOpen
+  ] = useState(false)
+
+  const handleSelectRune = (rune: typeof runes[number]) => {
+    if (selectedRune) { return }
+
+    setSelectedRune(rune)
+    setTimeout(() => {
+      setIsDescriptionModalOpen(true)
+    }, 300)
+  }
+
+  const handleInit = () => {
+    setSelectedRune(null)
+    setIsDescriptionModalOpen(false)
+  }
 
   return (
     <>
@@ -23,7 +44,7 @@ const RuneDivination: FC<Props> = () => {
               <Rune
                 key={rune.key}
                 isActive={selectedRune === rune}
-                onClick={() => setSelectedRune(rune)}
+                onClick={() => handleSelectRune(rune)}
               >
                 <img src={rune.icon} width={75} height={75} />
               </Rune>
@@ -31,6 +52,35 @@ const RuneDivination: FC<Props> = () => {
           </div>
         </div>
       </main>
+
+      <Modal show={isDescriptionModalOpen}>
+        {selectedRune && <Card className='mx-2 px-10 space-y-5'>
+          <div className='flex justify-between items-center'>
+            <img src={selectedRune.icon} alt="" />
+            <h3 className='font-bold text-lg'>{selectedRune.name}</h3>
+          </div>
+          <div>
+            <h4 className='font-bold'>意義</h4>
+            <ul className='ps-5 list-disc text-slate-700'>
+              {selectedRune.meanings.map(meaning => (
+                <li key={meaning}>{meaning}</li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h4 className='font-bold'>指引</h4>
+            <ul className='ps-5 list-disc text-slate-700'>
+              {selectedRune.guides.map(guide => (
+                <li key={guide}>{guide}</li>
+              ))}
+            </ul>
+          </div>
+          <button
+            className='flex justify-center px-4 py-1 w-full md:w-auto rounded-xl bg-slate-700 text-slate-100 hover:bg-slate-100 hover:text-slate-700'
+            onClick={handleInit}
+          >再測一次</button>
+        </Card>}
+      </Modal>
     </>
   )
 }
