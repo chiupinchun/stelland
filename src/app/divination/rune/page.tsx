@@ -4,6 +4,7 @@ import Rune from './components/rune'
 import Modal from '@/app/common/components/ui/modal'
 import Card from '@/app/common/components/ui/card'
 import { shuffle } from '@/app/common/utils/math'
+import bg from '@/assets/images/rune-bg.webp'
 
 interface Props { }
 
@@ -33,8 +34,13 @@ const RuneDivination: FC<Props> = () => {
 
   return (
     <>
-      <main className='flex flex-col justify-center items-center h-screen'>
-        <div>
+      <main
+        className='flex flex-col justify-center items-center h-screen bg-center'
+        style={{
+          backgroundImage: `url(${bg})`
+        }}
+      >
+        <div className='p-10 bg-slate-700 bg-opacity-50 rounded-2xl'>
           <div className='mb-3 md:mb-8 text-start text-white'>
             <h2 className='mb-2 font-bold text-lg'>符文占卜</h2>
             <p className='text-slate-300'>
