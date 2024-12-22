@@ -23,6 +23,7 @@ const Rune: FC<Props> = ({ children, isActive, className = '', onClick }) => {
     <>
       <div className={twMerge(
         'relative cursor-pointer transition',
+        isActive ? '' : 'hover:scale-110',
         isDuringTransition ? 'scale-x-0' : '',
         className
       )} onClick={onClick}>
