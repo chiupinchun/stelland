@@ -1,13 +1,15 @@
-import { FC, useMemo, useState } from 'react'
-import { runes } from './configs/runes'
+import { FC, useState } from 'react'
+import { runes as runesBeforeShuffled } from './configs/runes'
 import Rune from './components/rune'
 import Modal from '@/app/common/components/ui/modal'
 import Card from '@/app/common/components/ui/card'
-import { sprites } from '@/app/common/configs/sprites'
+import { shuffle } from '@/app/common/utils/math'
 
 interface Props { }
 
 const RuneDivination: FC<Props> = () => {
+  const [runes, setRunes] = useState(shuffle(runesBeforeShuffled))
+
   const [selectedRune, setSelectedRune] = useState<typeof runes[number] | null>(null)
 
   const [
@@ -26,6 +28,7 @@ const RuneDivination: FC<Props> = () => {
   const handleInit = () => {
     setSelectedRune(null)
     setIsDescriptionModalOpen(false)
+    setRunes(shuffle(runesBeforeShuffled))
   }
 
   return (

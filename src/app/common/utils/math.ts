@@ -29,3 +29,7 @@ export const getRandomInt = (min: number, max: number) => {
 export const randomByRate = (rate: number) => {
   return Math.random() < rate
 }
+
+export const shuffle = <T = unknown>(arr: T[]): T[] => {
+  return [...arr].sort(() => Math.random() > 0.5 ? 1 : -1)
+}
