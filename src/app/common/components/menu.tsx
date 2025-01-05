@@ -34,6 +34,15 @@ const menu: MenuGroup[] = [
         href: '/divination/rune'
       }
     ]
+  },
+  {
+    title: '關於',
+    children: [
+      {
+        title: '星靈圖鑑',
+        href: '/profiles'
+      }
+    ]
   }
 ]
 
