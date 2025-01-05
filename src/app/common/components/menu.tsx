@@ -1,6 +1,7 @@
 import { AlignJustify, ChevronDown } from 'lucide-react'
 import { FC, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { twMerge } from 'tailwind-merge'
 
 interface MenuLink {
   title: string
@@ -52,11 +53,15 @@ const Menu: FC<Props> = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const [activeGroup, setActiveGroup] = useState<MenuGroup | null>(null)
-  const clearActiveGroup = () => setActiveGroup(null)
 
   const isGroupActive = (group: MenuGroup) => activeGroup === group
 
   useEffect(() => {
+    const clearActiveGroup = () => {
+      setIsMenuOpen(false)
+      setActiveGroup(null)
+    }
+
     document.body.addEventListener('click', clearActiveGroup)
 
     return () => {
@@ -66,11 +71,11 @@ const Menu: FC<Props> = () => {
 
   return (
     <>
-      <div className='fixed right-5 top-5 z-10'>
-        <nav className={
-          'fixed md:absolute flex justify-center w-[50vw] md:w-max transition-all '
-          + (isMenuOpen ? 'right-0 md:right-16 opacity-100' : '-right-[100vw] opacity-0')
-        }>
+      <div className='fixed right-5 top-5 z-10' onClick={e => e.stopPropagation()}>
+        <nav className={twMerge(
+          'fixed md:absolute top-0 flex justify-center pt-5 ps-4 w-[50vw] h-screen bg-black bg-opacity-75 md:pt-0 md:w-max md:h-fit md:bg-inherit transition-all',
+          isMenuOpen ? 'right-0 md:right-16 opacity-100' : '-right-[100vw] opacity-0'
+        )}>
           <ul className='flex flex-col md:flex-row items-start gap-10 md:gap-20 w-full'>
             {menu.map(group => (
               <li
@@ -79,7 +84,7 @@ const Menu: FC<Props> = () => {
                   setActiveGroup(group)
                 }}
                 onMouseEnter={() => setActiveGroup(group)}
-                onMouseLeave={clearActiveGroup} key={group.title}
+                onMouseLeave={() => setActiveGroup(null)} key={group.title}
               >
                 {
                   group.href
