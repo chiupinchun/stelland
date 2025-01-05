@@ -68,10 +68,10 @@ const Menu: FC<Props> = () => {
     <>
       <div className='fixed right-5 top-5 z-10'>
         <nav className={
-          'absolute flex justify-center w-max transition-all '
-          + (isMenuOpen ? 'right-16 opacity-100' : '-right-[100vw] opacity-0')
+          'fixed md:absolute flex justify-center w-[50vw] md:w-max transition-all '
+          + (isMenuOpen ? 'right-0 md:right-16 opacity-100' : '-right-[100vw] opacity-0')
         }>
-          <ul className='flex items-start gap-10 md:gap-20'>
+          <ul className='flex flex-col md:flex-row items-start gap-10 md:gap-20 w-full'>
             {menu.map(group => (
               <li
                 onClick={(e) => {
