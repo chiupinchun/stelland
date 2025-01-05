@@ -3,13 +3,17 @@ import { Sprite, sprites } from '@/app/common/configs/sprites'
 import { twMerge } from 'tailwind-merge'
 import Card from '../common/components/ui/card'
 import { getExcellentStatus } from './utils/status'
+import { useScroll } from '../common/hooks/useScroll'
 
 const Anchor: FC<{
   sprite: Sprite
   onAnchor: (sprite: Sprite) => void
 }> = ({ sprite, onAnchor }) => {
   return (
-    <a onClick={() => onAnchor(sprite)} className='cursor-pointer'>{sprite.name}</a>
+    <a
+      onClick={() => onAnchor(sprite)}
+      className='p-2 rounded text-center cursor-pointer hover:bg-slate-700'
+    >{sprite.name}</a>
   )
 }
 
@@ -70,21 +74,27 @@ interface Props { }
 
 const Profiles: FC<Props> = () => {
   const [selectedSprite, setSelectedSprite] = useState<Sprite | null>(null);
+  const { scrollY } = useScroll()
 
   return (
     <>
-      <main className='py-5 container'>
-        <nav className='grid grid-cols-3 md:flex gap-2 mb-5 text-slate-300'>
-          {sprites.map(sprite => (
-            <Anchor
-              key={sprite.key}
-              sprite={sprite}
-              onAnchor={setSelectedSprite}
-            />
-          ))}
-        </nav>
+      <main className='container'>
+        <div className={twMerge(
+          'sticky top-0 bg-black transition-all',
+          scrollY > 0 ? 'py-1 border-b' : ' py-3'
+        )}>
+          <nav className='grid grid-cols-3 md:flex p-1 md:w-fit border-4 border-slate-700 rounded-xl text-slate-300'>
+            {sprites.map(sprite => (
+              <Anchor
+                key={sprite.key}
+                sprite={sprite}
+                onAnchor={setSelectedSprite}
+              />
+            ))}
+          </nav>
+        </div>
 
-        <section className='space-y-5'>
+        <section className='mb-5 space-y-5'>
           {sprites.map((sprite, index) => (
             <Profile
               key={sprite.key}
