@@ -5,6 +5,7 @@ import Card from '../common/components/ui/card'
 import { initialState, reducer } from './reducer'
 import Avatar from '../common/components/ui/avatar'
 import bg from '@/assets/images/spirits.webp'
+import ToTop from '../common/components/ui/goTop'
 
 interface Props { }
 
@@ -83,6 +84,8 @@ const Diary: FC<Props> = () => {
           </section>
         </div>
       </main>
+
+      <ToTop />
     </>
   )
 }
