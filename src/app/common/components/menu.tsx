@@ -42,6 +42,10 @@ const menu: MenuGroup[] = [
       {
         title: '星靈圖鑑',
         href: '/profiles'
+      },
+      {
+        title: '星靈日記',
+        href: '/diary'
       }
     ]
   }

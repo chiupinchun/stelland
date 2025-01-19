@@ -139,3 +139,8 @@ export const sprites = [
 ] as const
 
 export type Sprite = typeof sprites[number]
+
+export const spriteMap = sprites.reduce((map, sprite) => {
+  map[sprite.key] = sprite
+  return map
+}, {} as Record<Sprite['key'], Sprite>)

@@ -10,15 +10,3 @@ export interface Diary {
     content: string
   }[]
 }
-
-// 複製貼上用，之後刪掉
-[
-  ,
-  {
-    century: 2,
-    year: 1,
-    title: '',
-    content: ``,
-    comments: []
-  }
-]
