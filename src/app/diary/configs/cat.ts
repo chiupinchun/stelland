@@ -79,10 +79,6 @@ export const catDiary: Diary[] = [
       {
         author: 'fish',
         content: '小無形……適可而止……'
-      },
-      {
-        author: 'chikun',
-        content: '新紀快樂～'
       }
     ]
   }
