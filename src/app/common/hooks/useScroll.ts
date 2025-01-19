@@ -9,6 +9,7 @@ export const useScroll = () => {
       setScrollX(window.scrollX)
       setScrollY(window.scrollY)
     }
+    onScroll()
 
     window.addEventListener('scroll', onScroll)
 
