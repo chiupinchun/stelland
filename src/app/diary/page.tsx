@@ -14,7 +14,12 @@ const Diary: FC<Props> = () => {
 
   return (
     <>
-      <main className='min-h-screen bg-fixed bg-cover' style={{
+      <main className={twMerge(
+        'min-h-screen bg-fixed bg-cover transition-all',
+        ['dog', 'prairie-dog'].includes(state.author) ? 'bg-right' :
+          ['chikun', 'cat'].includes(state.author) ? 'bg-center' : 'bg-left',
+        'md:bg-center'
+      )} style={{
         backgroundImage: `url(${bg})`
       }}>
         <div className='py-5 container text-slate-700'>
