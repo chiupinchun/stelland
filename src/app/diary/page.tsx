@@ -41,9 +41,14 @@ const Diary: FC<Props> = () => {
           <section className='space-y-5'>
             {state.diaries.map((diary, index) => (
               <Card key={index}>
-                <div className='flex items-center gap-5 mb-5'>
-                  <Avatar src={spriteMap[state.author].avatar} />
-                  <h3 className='font-bold text-lg'>{diary.title}</h3>
+                <div className='flex justify-between mb-5'>
+                  <div className='flex items-center gap-5'>
+                    <Avatar src={spriteMap[state.author].avatar} />
+                    <h3 className='font-bold text-lg'>{diary.title}</h3>
+                  </div>
+                  <div className='flex items-end text-sm'>
+                    {diary.century}星紀 {diary.year}年
+                  </div>
                 </div>
                 <p className={twMerge(
                   diary.collapsed ? 'truncate ...' : 'whitespace-pre-line'
