@@ -51,7 +51,7 @@ const Diary: FC<Props> = () => {
 
                 <ul className={twMerge(
                   'space-y-2 rounded overflow-y-hidden transition-all',
-                  diary.collapsed ? 'max-h-0' : 'mt-4 p-3 border max-h-[unset]'
+                  diary.collapsed ? 'max-h-0' : 'my-4 p-3 border max-h-[unset]'
                 )}>
                   {diary.comments.map((comment, index) => (<Fragment key={index}>
                     {index > 0 && <hr />}
@@ -63,13 +63,15 @@ const Diary: FC<Props> = () => {
                 </ul>
 
                 <div className='flex justify-end'>
-                  {diary.collapsed && <a
+                  <a
                     className='text-blue-700 cursor-pointer'
                     onClick={() => dispatch({
                       type: 'toggle_collapse',
                       payload: diary
                     })}
-                  >展開</a>}
+                  >
+                    {diary.collapsed ? '展開' : '收合'}
+                  </a>
                 </div>
               </Card>
             ))}
