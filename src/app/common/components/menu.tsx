@@ -37,7 +37,7 @@ const menu: MenuGroup[] = [
     ]
   },
   {
-    title: '關於',
+    title: '設定',
     children: [
       {
         title: '星靈圖鑑',
