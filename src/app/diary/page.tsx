@@ -57,7 +57,7 @@ const Diary: FC<Props> = () => {
                   </div>
                 </div>
                 <p className={twMerge(
-                  diary.collapsed ? 'truncate ...' : 'whitespace-pre-line'
+                  diary.collapsed ? 'truncate ...' : 'whitespace-pre-line break-words'
                 )}>{diary.content}</p>
 
                 <ul className={twMerge(
