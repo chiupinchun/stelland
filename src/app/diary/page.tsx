@@ -64,13 +64,17 @@ const Diary: FC<Props> = () => {
                   'space-y-2 rounded overflow-y-hidden transition-all',
                   diary.collapsed ? 'max-h-0' : 'my-4 p-3 border max-h-[unset]'
                 )}>
-                  {diary.comments.map((comment, index) => (<Fragment key={index}>
-                    {index > 0 && <hr />}
-                    <li className='flex items-start gap-5'>
-                      <Avatar src={spriteMap[comment.author].avatar} width={50} height={50} />
-                      <p className='whitespace-pre-line'>{comment.content}</p>
-                    </li>
-                  </Fragment>))}
+                  {
+                    diary.comments.length
+                      ? diary.comments.map((comment, index) => (<Fragment key={index}>
+                        {index > 0 && <hr />}
+                        <li className='flex items-start gap-5'>
+                          <Avatar src={spriteMap[comment.author].avatar} width={50} height={50} />
+                          <p className='whitespace-pre-line'>{comment.content}</p>
+                        </li>
+                      </Fragment>))
+                      : <div className='text-slate-600 text-center'>（這篇日記目前沒有留言。）</div>
+                  }
                 </ul>
 
                 <div className='flex justify-end'>
