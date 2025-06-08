@@ -1,3 +1,7 @@
+.button {
+  @apply px-5 py-2 rounded-xl bg-slate-300 hover:bg-slate-100;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

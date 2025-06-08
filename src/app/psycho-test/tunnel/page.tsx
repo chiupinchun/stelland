@@ -74,7 +74,7 @@ const TunnelCore: React.FC<{
         <div className='w-fit'>
           {isStarted || <button
             onClick={start}
-            className='px-5 py-2 rounded-xl bg-slate-300 hover:bg-slate-100'
+            className='button'
           >開始測驗</button>}
           {isStarted && !isWalking
             ? <>

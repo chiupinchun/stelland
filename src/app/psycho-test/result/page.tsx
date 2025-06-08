@@ -2,14 +2,17 @@ import Scene from '@/app/common/components/r3f/scene'
 import UiModel from '@/app/common/components/r3f/ui-model'
 import Card from '@/app/common/components/ui/card'
 import { sprites } from '@/app/common/configs/sprites'
-import { FC, useEffect } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { FC, useEffect, useMemo } from 'react'
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import StatusChart from './components/status'
+import Share from '@/app/common/components/share'
 
 interface Props { }
 
 const Result: FC<Props> = () => {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+
   const { key } = useParams()
   const sprite = sprites.find(sprite => sprite.key === key)
 
@@ -20,6 +23,8 @@ const Result: FC<Props> = () => {
       navigate('/psycho-test/tunnel')
     }
   }, [sprite])
+
+  const isShareMode = useMemo(() => searchParams.get('mode') === 'share', [searchParams])
 
   return (
     <>
@@ -32,7 +37,7 @@ const Result: FC<Props> = () => {
         <div className='absolute md:relative bottom-5 w-full md:w-fit'>
           <Card className='mx-auto md:mx-0 w-96 max-w-[90vw]'>
             <h2>
-              你的守護星靈：
+              守護星靈：
               <span className='font-bold'>{sprite.name}</span>
             </h2>
             <p className='my-4 whitespace-break-spaces'>「{sprite.lines.contract}」</p>
@@ -40,7 +45,19 @@ const Result: FC<Props> = () => {
               <div className='w-52'>
                 <StatusChart sprite={sprite} />
               </div>
-              <Link to='/psycho-test/tunnel' className='text-blue-700 cursor-pointer hover:underline'>再測一次</Link>
+              <div className='flex flex-col gap-5'>
+                {!isShareMode && <Share
+                  location='left-top'
+                  link={location.href.replace(/\?.*/, '') + '?mode=share'}
+                  shareText={
+                    `我的守護星靈是——${sprite.name}！\n「${sprite.lines.contract}」\n一起來測測看你的守護星靈吧☆`
+                  }
+                />}
+
+                <Link to='/psycho-test/tunnel' className='text-blue-700 cursor-pointer hover:underline'>
+                  {isShareMode ? '測我的星靈' : '再測一次'}
+                </Link>
+              </div>
             </div>
           </Card>
         </div>
