@@ -1,4 +1,4 @@
-import { Check, Facebook, Link2, Linkedin, Twitter } from 'lucide-react'
+import { Facebook, Link2, Linkedin, Twitter } from 'lucide-react'
 import { FC, useEffect, useMemo, useRef, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
