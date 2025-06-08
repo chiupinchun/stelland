@@ -1,6 +1,7 @@
 import { Facebook, Link2, Linkedin, Twitter } from 'lucide-react'
 import { FC, useEffect, useMemo, useRef, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
+import { ToastContainer, toast } from 'react-toastify';
 
 const X_OFFSET = 12
 const Y_OFFSET = 12
@@ -117,7 +118,11 @@ const Share: FC<Props> = ({
       key: 'link',
       onClick: async () => {
         navigator.clipboard.writeText(link).then(() => {
-          alert('複製成功！')
+          toast('複製成功！', {
+            autoClose: 1000,
+            hideProgressBar: true,
+            className: 'w-48'
+          })
         }).catch(console.error)
       }
     },
@@ -150,6 +155,8 @@ const Share: FC<Props> = ({
           ))}
         </ul>
       </div>
+
+      <ToastContainer />
     </>
   )
 }
